@@ -145,8 +145,7 @@
                                 <color key="backgroundColor" red="0.0" green="1" blue="0.90667767769999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="additionalLabel" destination="9Hi-xI-cEL" id="5db-bc-M6b"/>
-                                    <outlet property="dateLabel" destination="jbA-T4-7th" id="Wa0-40-tVQ"/>
-                                    <outlet property="dateOfCreation" destination="jbA-T4-7th" id="6ZK-9X-1CC"/>
+                                    <outlet property="dateOfCreationLabel" destination="jbA-T4-7th" id="blS-t8-Jfg"/>
                                     <outlet property="firstLineLabel" destination="q42-8b-K70" id="Gpk-fm-98v"/>
                                     <segue destination="fFE-EW-hKF" kind="show" identifier="FromSelectedCellToEditing" id="Fdn-r7-ofQ"/>
                                 </connections>

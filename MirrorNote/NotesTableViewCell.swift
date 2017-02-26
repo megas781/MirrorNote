@@ -10,19 +10,24 @@ import UIKit
 
 class NotesTableViewCell: UITableViewCell {
    
-   var note: Note!
+   var note: Note! {
+      willSet {
+         //Потом допили логику
+         
+         firstLineLabel.text = newValue.content!
+         dateOfCreationLabel.text = DateFormatter.localizedString(from: newValue.dateOfCreation! as Date, dateStyle: .short, timeStyle: .none)
+         additionalLabel.text = "Потом добавим логику additional label'a"
+      }
+   }
    
    @IBOutlet weak var firstLineLabel: UILabel!
-   @IBOutlet weak var dateLabel: UILabel!
+   
+   @IBOutlet weak var dateOfCreationLabel: UILabel!
    @IBOutlet weak var additionalLabel: UILabel!
    
    override func awakeFromNib() {
       super.awakeFromNib()
-      //Потом допили логику
       
-      firstLineLabel.text = note.content!
-      dateLabel.text = DateFormatter.localizedString(from: note.dateOfCreation! as Date, dateStyle: .short, timeStyle: .none)
-      additionalLabel.text = "Потом добавим логику additional label'a"
    }
    
    override func setSelected(_ selected: Bool, animated: Bool) {

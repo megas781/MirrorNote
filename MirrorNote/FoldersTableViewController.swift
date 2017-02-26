@@ -116,6 +116,14 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
          print("Не удалось получить данные о папках: \(error.localizedDescription)")
       }
       
+      let m = Note(context: context)
+      m.content = "Первая запись бла бла бла дбла ббал"
+      m.dateOfCreation = Date() as NSDate
+      let n = Note(context: context)
+      n.content = "Вторая запись бла бла бла блаб лабл ба "
+      n.dateOfCreation = Date() as NSDate
+      
+      folderList[1].notes = folderList[1].notes!.addingObjects(from: [m,n]) as NSSet!
       
    }
    

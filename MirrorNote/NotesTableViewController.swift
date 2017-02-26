@@ -21,10 +21,9 @@ class NotesTableViewController: UITableViewController {
    override func viewDidLoad() {
       super.viewDidLoad()
       
-//      notesFetchRequest.sortDescriptors = []
-//      notesFetchController = NSFetchedResultsController(fetchRequest: notesFetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-      
       notesList = folder.notes!.sortedArray(using: [NSSortDescriptor.init(key: "self.dateOfCreation", ascending: true)]) as! [Note]
+      print("notesList после присваивания = \(notesList)")
+      
       
       
    }
@@ -48,9 +47,11 @@ class NotesTableViewController: UITableViewController {
    
    
    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! NotesTableViewCell
+      let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! NotesTableViewCell
       
-      // Configure the cell...
+      let info = notesList[indexPath.row]
+      
+      cell.note = info
       
       return cell
    }
