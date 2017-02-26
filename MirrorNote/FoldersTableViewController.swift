@@ -189,6 +189,19 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
    
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
       
+      switch segue.identifier! {
+      case "fromFolderToNotes":
+         
+         let dvc = segue.destination as! NotesTableViewController
+         
+         dvc.folder = foldersFetchController.object(at: tableView.indexPathForSelectedRow!)
+         
+         
+      default:
+         break
+      }
+      
+      
    }
    
    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {

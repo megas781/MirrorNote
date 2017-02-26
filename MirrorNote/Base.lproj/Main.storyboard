@@ -56,7 +56,7 @@
                                 <connections>
                                     <outlet property="nameOfFolderLabel" destination="TYD-4c-JzD" id="PRQ-BX-vsF"/>
                                     <outlet property="quantityOfElementsInFolderLabel" destination="WMu-fU-0lJ" id="rEO-Av-Bum"/>
-                                    <segue destination="4TN-P8-qRY" kind="show" id="odD-RK-PuK"/>
+                                    <segue destination="4TN-P8-qRY" kind="show" identifier="fromFolderToNotes" id="odD-RK-PuK"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
