@@ -79,6 +79,8 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
       
       //коммент для мастера
       
+      //от пк к серверу
+      
       //Добавляем лишь однажды
       ac.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
       
