@@ -7,23 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EDEE01F81E637F19002542D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEE01F71E637F19002542D2 /* AppDelegate.swift */; };
-		EDEE01FA1E637F19002542D2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEE01F91E637F19002542D2 /* ViewController.swift */; };
-		EDEE01FD1E637F19002542D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDEE01FB1E637F19002542D2 /* Main.storyboard */; };
-		EDEE02001E637F19002542D2 /* MirrorNote.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EDEE01FE1E637F19002542D2 /* MirrorNote.xcdatamodeld */; };
-		EDEE02021E637F19002542D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDEE02011E637F19002542D2 /* Assets.xcassets */; };
-		EDEE02051E637F19002542D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDEE02031E637F19002542D2 /* LaunchScreen.storyboard */; };
+		EDEE02171E637F66002542D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEE020C1E637F66002542D2 /* AppDelegate.swift */; };
+		EDEE021A1E637F66002542D2 /* EditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEE020F1E637F66002542D2 /* EditingViewController.swift */; };
+		EDEE021B1E637F66002542D2 /* FoldersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEE02101E637F66002542D2 /* FoldersTableViewCell.swift */; };
+		EDEE021C1E637F66002542D2 /* FoldersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEE02111E637F66002542D2 /* FoldersTableViewController.swift */; };
+		EDEE021D1E637F66002542D2 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDEE02121E637F66002542D2 /* Info.plist */; };
+		EDEE021E1E637F66002542D2 /* MirrorNote.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EDEE02131E637F66002542D2 /* MirrorNote.xcdatamodeld */; };
+		EDEE021F1E637F66002542D2 /* NotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEE02151E637F66002542D2 /* NotesTableViewCell.swift */; };
+		EDEE02201E637F66002542D2 /* NotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEE02161E637F66002542D2 /* NotesTableViewController.swift */; };
+		EDEE022F1E63821F002542D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDEE022B1E63821F002542D2 /* LaunchScreen.storyboard */; };
+		EDEE02301E63821F002542D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDEE022D1E63821F002542D2 /* Main.storyboard */; };
+		EDEE02321E63823C002542D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDEE02311E63823C002542D2 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		EDEE01F41E637F19002542D2 /* MirrorNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MirrorNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		EDEE01F71E637F19002542D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EDEE01F91E637F19002542D2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		EDEE01FC1E637F19002542D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		EDEE01FF1E637F19002542D2 /* MirrorNote.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MirrorNote.xcdatamodel; sourceTree = "<group>"; };
-		EDEE02011E637F19002542D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		EDEE02041E637F19002542D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		EDEE02061E637F19002542D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EDEE020C1E637F66002542D2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = MirrorNote/AppDelegate.swift; sourceTree = "<group>"; };
+		EDEE020F1E637F66002542D2 /* EditingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditingViewController.swift; path = MirrorNote/EditingViewController.swift; sourceTree = "<group>"; };
+		EDEE02101E637F66002542D2 /* FoldersTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoldersTableViewCell.swift; path = MirrorNote/FoldersTableViewCell.swift; sourceTree = "<group>"; };
+		EDEE02111E637F66002542D2 /* FoldersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoldersTableViewController.swift; path = MirrorNote/FoldersTableViewController.swift; sourceTree = "<group>"; };
+		EDEE02121E637F66002542D2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MirrorNote/Info.plist; sourceTree = "<group>"; };
+		EDEE02141E637F66002542D2 /* MirrorNote.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MirrorNote.xcdatamodel; sourceTree = "<group>"; };
+		EDEE02151E637F66002542D2 /* NotesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotesTableViewCell.swift; path = MirrorNote/NotesTableViewCell.swift; sourceTree = "<group>"; };
+		EDEE02161E637F66002542D2 /* NotesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotesTableViewController.swift; path = MirrorNote/NotesTableViewController.swift; sourceTree = "<group>"; };
+		EDEE022C1E63821F002542D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MirrorNote/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EDEE022E1E63821F002542D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MirrorNote/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EDEE02311E63823C002542D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = MirrorNote/Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,7 +49,15 @@
 		EDEE01EB1E637F19002542D2 = {
 			isa = PBXGroup;
 			children = (
-				EDEE01F61E637F19002542D2 /* MirrorNote */,
+				EDEE020C1E637F66002542D2 /* AppDelegate.swift */,
+				EDEE02331E6382AB002542D2 /* Folders Scene */,
+				EDEE02341E6382BB002542D2 /* Notes Scene */,
+				EDEE020F1E637F66002542D2 /* EditingViewController.swift */,
+				EDEE022D1E63821F002542D2 /* Main.storyboard */,
+				EDEE022B1E63821F002542D2 /* LaunchScreen.storyboard */,
+				EDEE02311E63823C002542D2 /* Assets.xcassets */,
+				EDEE02131E637F66002542D2 /* MirrorNote.xcdatamodeld */,
+				EDEE02121E637F66002542D2 /* Info.plist */,
 				EDEE01F51E637F19002542D2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -53,18 +70,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		EDEE01F61E637F19002542D2 /* MirrorNote */ = {
+		EDEE02331E6382AB002542D2 /* Folders Scene */ = {
 			isa = PBXGroup;
 			children = (
-				EDEE01F71E637F19002542D2 /* AppDelegate.swift */,
-				EDEE01F91E637F19002542D2 /* ViewController.swift */,
-				EDEE01FB1E637F19002542D2 /* Main.storyboard */,
-				EDEE02011E637F19002542D2 /* Assets.xcassets */,
-				EDEE02031E637F19002542D2 /* LaunchScreen.storyboard */,
-				EDEE02061E637F19002542D2 /* Info.plist */,
-				EDEE01FE1E637F19002542D2 /* MirrorNote.xcdatamodeld */,
+				EDEE02111E637F66002542D2 /* FoldersTableViewController.swift */,
+				EDEE02101E637F66002542D2 /* FoldersTableViewCell.swift */,
 			);
-			path = MirrorNote;
+			name = "Folders Scene";
+			sourceTree = "<group>";
+		};
+		EDEE02341E6382BB002542D2 /* Notes Scene */ = {
+			isa = PBXGroup;
+			children = (
+				EDEE02161E637F66002542D2 /* NotesTableViewController.swift */,
+				EDEE02151E637F66002542D2 /* NotesTableViewCell.swift */,
+			);
+			name = "Notes Scene";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -100,6 +121,7 @@
 					EDEE01F31E637F19002542D2 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 6WBATSU6B5;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -127,9 +149,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDEE02051E637F19002542D2 /* LaunchScreen.storyboard in Resources */,
-				EDEE02021E637F19002542D2 /* Assets.xcassets in Resources */,
-				EDEE01FD1E637F19002542D2 /* Main.storyboard in Resources */,
+				EDEE02301E63821F002542D2 /* Main.storyboard in Resources */,
+				EDEE021D1E637F66002542D2 /* Info.plist in Resources */,
+				EDEE02321E63823C002542D2 /* Assets.xcassets in Resources */,
+				EDEE022F1E63821F002542D2 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,29 +163,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDEE01FA1E637F19002542D2 /* ViewController.swift in Sources */,
-				EDEE01F81E637F19002542D2 /* AppDelegate.swift in Sources */,
-				EDEE02001E637F19002542D2 /* MirrorNote.xcdatamodeld in Sources */,
+				EDEE02171E637F66002542D2 /* AppDelegate.swift in Sources */,
+				EDEE021A1E637F66002542D2 /* EditingViewController.swift in Sources */,
+				EDEE021E1E637F66002542D2 /* MirrorNote.xcdatamodeld in Sources */,
+				EDEE021C1E637F66002542D2 /* FoldersTableViewController.swift in Sources */,
+				EDEE021B1E637F66002542D2 /* FoldersTableViewCell.swift in Sources */,
+				EDEE021F1E637F66002542D2 /* NotesTableViewCell.swift in Sources */,
+				EDEE02201E637F66002542D2 /* NotesTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		EDEE01FB1E637F19002542D2 /* Main.storyboard */ = {
+		EDEE022B1E63821F002542D2 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				EDEE01FC1E637F19002542D2 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		EDEE02031E637F19002542D2 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EDEE02041E637F19002542D2 /* Base */,
+				EDEE022C1E63821F002542D2 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		EDEE022D1E63821F002542D2 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EDEE022E1E63821F002542D2 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -263,11 +290,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 6WBATSU6B5;
 				INFOPLIST_FILE = MirrorNote/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GGhost.MirrorNote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -276,6 +305,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 6WBATSU6B5;
 				INFOPLIST_FILE = MirrorNote/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -308,13 +338,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		EDEE01FE1E637F19002542D2 /* MirrorNote.xcdatamodeld */ = {
+		EDEE02131E637F66002542D2 /* MirrorNote.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				EDEE01FF1E637F19002542D2 /* MirrorNote.xcdatamodel */,
+				EDEE02141E637F66002542D2 /* MirrorNote.xcdatamodel */,
 			);
-			currentVersion = EDEE01FF1E637F19002542D2 /* MirrorNote.xcdatamodel */;
-			path = MirrorNote.xcdatamodeld;
+			currentVersion = EDEE02141E637F66002542D2 /* MirrorNote.xcdatamodel */;
+			name = MirrorNote.xcdatamodeld;
+			path = MirrorNote/MirrorNote.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
