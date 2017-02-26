@@ -77,6 +77,7 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
       
       tableView.tableFooterView = UIView(frame: .zero)
       
+      //коммент для мастера
       
       //Добавляем лишь однажды
       ac.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
