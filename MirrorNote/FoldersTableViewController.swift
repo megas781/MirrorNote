@@ -19,45 +19,44 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
    
    
    @IBAction func addNewFolder(_ sender: UIBarButtonItem) {
-      
-      
-      let ac = UIAlertController(title: "New Folder", message: "Type the name of folder", preferredStyle: .alert)
-      
-      ac.addTextField { (textField) in
-         textField.keyboardType = .default
-         textField.placeholder = "Folder name"
-         textField.delegate = self
+
+      if ac.textFields!.count < 1 {
+         ac.addTextField { (textField) in
+            textField.keyboardType = .default
+            textField.placeholder = "Folder name"
+            textField.delegate = self
+         }
       }
       
       
-      //isEnabled присваиваю false, т.к. textField при появлении будет пустым, и поэтому я хочу, чтобы кнопка была неактивна
-      create.isEnabled = false
+      if ac.actions.count < 2 {
+         //Переопределим кнопку create
+         create = UIAlertAction(title: "Create", style: .default, handler: { (action) in
+            let newFolder = Folder(context: context)
+            
+            newFolder.name = ac.textFields!.first!.text!
+            newFolder.dateOfCreation = Date() as NSDate
+            //Всегда при объявлении объявляй .notes как [], чтобы не было nil. Это может пригодиться
+            newFolder.notes = []
+            
+            self.folderList.append(newFolder)
+            
+            do {
+               try context.save()
+               try self.foldersFetchController.performFetch()
+            } catch let error as NSError {
+               print("Не удалось сохранить данные: \(error.localizedDescription)")
+            }
+            
+            self.tableView.reloadData()
+            
+         })
+         
+         create.isEnabled = false
+         
+         ac.addAction(create)
+      }
       
-      //Переопределим кнопку create
-      create = UIAlertAction(title: "Create", style: .default, handler: { (action) in
-         let newFolder = Folder(context: context)
-         
-         newFolder.name = ac.textFields?.first?.text!
-         newFolder.dateOfCreation = Date() as NSDate
-         //Всегда при объявлении объявляй .notes как [], чтобы не было nil. Это может пригодиться
-         newFolder.notes = []
-         
-         self.folderList.append(newFolder)
-         
-         do {
-            try context.save()
-         } catch let error as NSError {
-            print("Не удалось сохранить данные: \(error.localizedDescription)")
-         }
-         
-         
-         self.tableView.reloadData()
-         
-      })
-      
-      
-      ac.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
-      ac.addAction(create)
       
       self.present(ac, animated: true, completion: nil)
       
@@ -78,8 +77,12 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
       
       tableView.tableFooterView = UIView(frame: .zero)
       
-      //Смотрим: если хранилище с папками пустое, то создаем новую папку под названием "Default folder"
       
+      //Добавляем лишь однажды
+      ac.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+      
+      
+      //Смотрим: если хранилище с папками пустое, то создаем новую папку под названием "Default folder"
       do {
          foldersFetchRequest.sortDescriptors = []
          foldersFetchController = NSFetchedResultsController(fetchRequest: foldersFetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
@@ -184,16 +187,22 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
     }
     */
    
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+      
+   }
    
    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
       
-      if textField.text!.characters.count == 1 && string == "" {
+      if range.length > 1 && string == "" && textField.text!.characters.count <= range.length || textField.text!.characters.count == 1 && string == "" {
          print("Нельзя сохранить")
          create.isEnabled = false
       } else {
-         print("можно сохранить")
+         print ("можно сохранить")
          create.isEnabled = true
       }
+      
+      print("length = \(range.length), location = \(range.location)")
+      print("string = \(string)")
       
       return true
    }
@@ -201,3 +210,4 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
 
 //Кнопка create для создания папки. Сделал fileprivate и объявил вне класса, чтобы метод делегата textField видел свойство create.isEnabled
 fileprivate var create = UIAlertAction()
+fileprivate let ac = UIAlertController(title: "New Folder", message: "Type the name of folder", preferredStyle: .alert)
