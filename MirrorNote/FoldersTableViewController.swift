@@ -191,18 +191,41 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
       
    }
    
+   override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+      
+      let remove = UITableViewRowAction(style: .destructive, title: "Remove") { (action, indexPath) in
+         
+         do {
+            
+            let objectToRemove = self.foldersFetchController.object(at: indexPath)
+            context.delete(objectToRemove)
+            self.folderList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            
+            try context.save()
+            try self.foldersFetchController.performFetch()
+            
+            
+         } catch let error as NSError {
+            print(error.localizedDescription)
+         }
+         
+      }
+      
+      
+      return [remove]
+   }
+   
    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
       
       if range.length > 1 && string == "" && textField.text!.characters.count <= range.length || textField.text!.characters.count == 1 && string == "" {
-         print("Нельзя сохранить")
+         
          create.isEnabled = false
       } else {
-         print ("можно сохранить")
+         
          create.isEnabled = true
       }
-      
-      print("length = \(range.length), location = \(range.location)")
-      print("string = \(string)")
       
       return true
    }
