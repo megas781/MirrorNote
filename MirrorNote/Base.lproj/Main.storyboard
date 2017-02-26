@@ -56,7 +56,7 @@
                                 <connections>
                                     <outlet property="nameOfFolderLabel" destination="TYD-4c-JzD" id="PRQ-BX-vsF"/>
                                     <outlet property="quantityOfElementsInFolderLabel" destination="WMu-fU-0lJ" id="rEO-Av-Bum"/>
-                                    <segue destination="4TN-P8-qRY" kind="show" identifier="fromFolderToNotes" id="eS7-Ka-xDf"/>
+                                    <segue destination="4TN-P8-qRY" kind="show" id="odD-RK-PuK"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -76,7 +76,7 @@
                     <navigationItem key="navigationItem" title="Folders" id="wmr-pw-dAx">
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="DBB-xa-xZM">
                             <connections>
-                                <action selector="action:" destination="cR8-Ur-eBw" id="0EG-hE-YXk"/>
+                                <action selector="refresh:" destination="cR8-Ur-eBw" id="iwL-fb-Fbd"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -144,9 +144,10 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.0" green="1" blue="0.90667767769999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
-                                    <outlet property="additionalLabel" destination="9Hi-xI-cEL" id="C78-No-40W"/>
+                                    <outlet property="additionalLabel" destination="9Hi-xI-cEL" id="5db-bc-M6b"/>
+                                    <outlet property="dateLabel" destination="jbA-T4-7th" id="Wa0-40-tVQ"/>
                                     <outlet property="dateOfCreation" destination="jbA-T4-7th" id="6ZK-9X-1CC"/>
-                                    <outlet property="firstLineLabel" destination="q42-8b-K70" id="yQ8-Mc-7Oq"/>
+                                    <outlet property="firstLineLabel" destination="q42-8b-K70" id="Gpk-fm-98v"/>
                                     <segue destination="fFE-EW-hKF" kind="show" identifier="FromSelectedCellToEditing" id="Fdn-r7-ofQ"/>
                                 </connections>
                             </tableViewCell>
@@ -169,7 +170,7 @@
                         </barButtonItem>
                     </toolbarItems>
                     <connections>
-                        <outlet property="buttomLabel" destination="rUp-tx-8uF" id="ebt-dB-x4x"/>
+                        <outlet property="buttonLabel" destination="rUp-tx-8uF" id="JRD-Em-gv4"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sez-EQ-OMW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -191,7 +192,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WQV-dt-hRx">
                                 <rect key="frame" x="16" y="0.0" width="343" height="667"/>
                                 <color key="backgroundColor" red="0.0" green="1" blue="0.90667767769999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" keyboardType="alphabet" keyboardAppearance="light" returnKeyType="done"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
@@ -240,6 +241,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Fdn-r7-ofQ"/>
+        <segue reference="WZj-nP-UfT"/>
     </inferredMetricsTieBreakers>
 </document>

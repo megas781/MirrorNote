@@ -13,6 +13,11 @@ var context = (UIApplication.shared.delegate as! AppDelegate).persistentContaine
 
 class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
    
+   @IBAction func refresh(_ sender: UIBarButtonItem) {
+      
+   }
+   
+   
    @IBAction func addNewFolder(_ sender: UIBarButtonItem) {
       
       
@@ -128,13 +133,7 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
       
       let info = folderList[indexPath.row]
       
-      cell.nameOfFolderLabel.text = info.name
-      
-      cell.quantityOfElementsInFolderLabel.text = String(info.notes!.count)
-      
-      if cell.quantityOfElementsInFolderLabel.text == "0" {
-         cell.quantityOfElementsInFolderLabel.text = ""
-      }
+      cell.folder = info
       
       return cell
    }

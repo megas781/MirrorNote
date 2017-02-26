@@ -10,7 +10,11 @@ import UIKit
 
 class NotesTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
+   @IBOutlet weak var firstLineLabel: UILabel!
+   @IBOutlet weak var dateLabel: UILabel!
+   @IBOutlet weak var additionalLabel: UILabel!
+   
+   override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }

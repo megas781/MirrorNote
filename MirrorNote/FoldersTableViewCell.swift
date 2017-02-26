@@ -10,8 +10,17 @@ import UIKit
 
 class FoldersTableViewCell: UITableViewCell {
    @IBOutlet weak var nameOfFolderLabel: UILabel!
-   
    @IBOutlet weak var quantityOfElementsInFolderLabel: UILabel!
+   
+   var folder : Folder! {
+      willSet {
+         nameOfFolderLabel.text = newValue.name
+         quantityOfElementsInFolderLabel.text = String(newValue.notes!.count)
+         if quantityOfElementsInFolderLabel.text! == "0" {
+            quantityOfElementsInFolderLabel.text! = ""
+         }
+      }
+   }
    
    override func awakeFromNib() {
       super.awakeFromNib()
