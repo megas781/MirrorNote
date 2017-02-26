@@ -1,0 +1,204 @@
+//
+//  FoldersTableViewController.swift
+//  MirrorNote
+//
+//  Created by Gleb Kalachev on 26.02.17.
+//  Copyright © 2017 Gleb Kalachev. All rights reserved.
+//
+
+import UIKit
+import CoreData
+
+var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
+class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
+   
+   @IBAction func addNewFolder(_ sender: UIBarButtonItem) {
+      
+      
+      let ac = UIAlertController(title: "New Folder", message: "Type the name of folder", preferredStyle: .alert)
+      
+      ac.addTextField { (textField) in
+         textField.keyboardType = .default
+         textField.placeholder = "Folder name"
+         textField.delegate = self
+      }
+      
+      
+      //isEnabled присваиваю false, т.к. textField при появлении будет пустым, и поэтому я хочу, чтобы кнопка была неактивна
+      create.isEnabled = false
+      
+      //Переопределим кнопку create
+      create = UIAlertAction(title: "Create", style: .default, handler: { (action) in
+         let newFolder = Folder(context: context)
+         
+         newFolder.name = ac.textFields?.first?.text!
+         newFolder.dateOfCreation = Date() as NSDate
+         //Всегда при объявлении объявляй .notes как [], чтобы не было nil. Это может пригодиться
+         newFolder.notes = []
+         
+         self.folderList.append(newFolder)
+         
+         do {
+            try context.save()
+         } catch let error as NSError {
+            print("Не удалось сохранить данные: \(error.localizedDescription)")
+         }
+         
+         
+         self.tableView.reloadData()
+         
+      })
+      
+      
+      ac.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+      ac.addAction(create)
+      
+      self.present(ac, animated: true, completion: nil)
+      
+   }
+   
+   var foldersFetchRequest: NSFetchRequest<Folder>! = Folder.fetchRequest()
+   
+   var foldersFetchController: NSFetchedResultsController<Folder>!
+   
+   var folderList: [Folder]! = []
+   
+   
+   //Это на всякий случай
+   var notesFetchController: NSFetchedResultsController<Note>!
+   
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      
+      tableView.tableFooterView = UIView(frame: .zero)
+      
+      //Смотрим: если хранилище с папками пустое, то создаем новую папку под названием "Default folder"
+      
+      do {
+         foldersFetchRequest.sortDescriptors = []
+         foldersFetchController = NSFetchedResultsController(fetchRequest: foldersFetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+         try foldersFetchController.performFetch()
+         folderList = foldersFetchController.fetchedObjects
+         //Если хранилище пустое, то...
+         if folderList.isEmpty {
+            
+            let defaultFolder = Folder(context: context)
+            
+            defaultFolder.name = "Default Folder"
+            defaultFolder.dateOfCreation = Date() as NSDate
+            defaultFolder.notes = []
+            
+            folderList.append(defaultFolder)
+            
+            //Создана дефолтная папка, добавлена в folderList, значит теперь сохраняем контект
+            do {
+               try context.save()
+            } catch let error as NSError {
+               print("Не удалось сохранить данные: \(error.localizedDescription)")
+            }
+            
+         } else {
+            // do nothing
+            print("Успешное извлеение данных из хранилища")
+         }
+         
+         
+      } catch let error as NSError {
+         print("Не удалось получить данные о папках: \(error.localizedDescription)")
+      }
+      
+      
+   }
+   
+   
+   
+   override func numberOfSections(in tableView: UITableView) -> Int {
+      return 1
+   }
+   
+   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      // #warning Incomplete implementation, return the number of rows
+      return folderList.count
+   }
+   
+   
+   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+      let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! FoldersTableViewCell
+      
+      let info = folderList[indexPath.row]
+      
+      cell.nameOfFolderLabel.text = info.name
+      
+      cell.quantityOfElementsInFolderLabel.text = String(info.notes!.count)
+      
+      if cell.quantityOfElementsInFolderLabel.text == "0" {
+         cell.quantityOfElementsInFolderLabel.text = ""
+      }
+      
+      return cell
+   }
+   
+   
+   /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    // Return false if you do not want the specified item to be editable.
+    return true
+    }
+    */
+   
+   /*
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    if editingStyle == .delete {
+    // Delete the row from the data source
+    tableView.deleteRows(at: [indexPath], with: .fade)
+    } else if editingStyle == .insert {
+    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }    
+    }
+    */
+   
+   /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+    
+    }
+    */
+   
+   /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+    // Return false if you do not want the item to be re-orderable.
+    return true
+    }
+    */
+   
+   /*
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
+    }
+    */
+   
+   
+   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+      
+      if textField.text!.characters.count == 1 && string == "" {
+         print("Нельзя сохранить")
+         create.isEnabled = false
+      } else {
+         print("можно сохранить")
+         create.isEnabled = true
+      }
+      
+      return true
+   }
+}
+
+//Кнопка create для создания папки. Сделал fileprivate и объявил вне класса, чтобы метод делегата textField видел свойство create.isEnabled
+fileprivate var create = UIAlertAction()

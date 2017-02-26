@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  MirrorNote
 //
-//  Created by Gleb Kalachev on 27.02.17.
+//  Created by Gleb Kalachev on 26.02.17.
 //  Copyright © 2017 Gleb Kalachev. All rights reserved.
 //
 
@@ -16,7 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-      // Override point for customization after application launch.
+      
+//      let vc = (window!.rootViewController! as! UINavigationController).topViewController! as! FoldersTableViewController
+      
+      
+      
       return true
    }
 
