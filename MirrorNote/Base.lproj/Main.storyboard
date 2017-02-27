@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="1" blue="0.82394123080000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="NUk-fU-QT6" customClass="FoldersTableViewCell" customModule="MirrorNote" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="NUk-fU-QT6" customClass="FoldersTableViewCell" customModule="MirrorNote" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NUk-fU-QT6" id="hQm-Bq-AaE">
@@ -205,6 +205,9 @@
                             <constraint firstItem="WQV-dt-hRx" firstAttribute="leading" secondItem="QmS-DN-E5H" secondAttribute="leadingMargin" id="nBT-9j-bcI"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="textView" destination="WQV-dt-hRx" id="R8t-ZP-K5V"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E1E-mp-ME0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
