@@ -62,6 +62,7 @@ class NotesTableViewController: UITableViewController {
       if segue.identifier == "FromSelectedCellToEditing" {
          let dvc = segue.destination as! EditingViewController
          
+         //Передаем заметку в EditingViewController
          dvc.editableNote = self.notesList[tableView.indexPathForSelectedRow!.row]
          
       }
