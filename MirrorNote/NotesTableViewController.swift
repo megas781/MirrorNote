@@ -26,6 +26,8 @@ class NotesTableViewController: UITableViewController {
       
       
       
+      
+      
    }
    
    override func didReceiveMemoryWarning() {
@@ -54,6 +56,15 @@ class NotesTableViewController: UITableViewController {
       cell.note = info
       
       return cell
+   }
+   
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+      if segue.identifier == "FromSelectedCellToEditing" {
+         let dvc = segue.destination as! EditingViewController
+         
+         dvc.editableNote = self.notesList[tableView.indexPathForSelectedRow!.row]
+         
+      }
    }
    
    
@@ -101,5 +112,26 @@ class NotesTableViewController: UITableViewController {
     // Pass the selected object to the new view controller.
     }
     */
+   
+   override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+      
+      let delete = UITableViewRowAction(style: .destructive, title: "Remove") { (action, indexPath) in
+         
+         //Удаляем из массива
+         let objectToDelete = self.notesList.remove(at: indexPath.row)
+         
+         //Удаляем из хранилища и пытаемся сохранить
+         context.delete(objectToDelete)
+         
+         do {
+            try context.save()
+         } catch let error as NSError {
+            print(error.localizedDescription)
+         }
+         
+      }
+      
+      return [delete]
+   }
    
 }

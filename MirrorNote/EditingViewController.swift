@@ -8,15 +8,24 @@
 
 import UIKit
 
-class EditingViewController: UIViewController {
+class EditingViewController: UIViewController, UITextViewDelegate {
    
    @IBOutlet weak var textView: UITextView!
    
+   var editableNote: Note!
    
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      // Do any additional setup after loading the view.
+      textView.delegate = self
+      //Если нам удалось загрузить данные с помощью prepareForSegue...
+      if editableNote == nil {
+         
+      } else {
+         textView.text = editableNote.content
+         
+      }
+      
    }
    
    override func didReceiveMemoryWarning() {
@@ -25,14 +34,9 @@ class EditingViewController: UIViewController {
    }
    
    
-   /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
+   
+   func textViewDidBeginEditing(_ textView: UITextView) {
+      
+   }
    
 }
