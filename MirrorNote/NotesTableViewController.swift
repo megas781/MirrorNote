@@ -21,6 +21,8 @@ class NotesTableViewController: UITableViewController {
    override func viewDidLoad() {
       super.viewDidLoad()
       
+      tableView.tableFooterView = UIView(frame: .zero)
+      
       notesList = folder.notes!.sortedArray(using: [NSSortDescriptor.init(key: "self.dateOfCreation", ascending: true)]) as! [Note]
       print("notesList после присваивания = \(notesList)")
       

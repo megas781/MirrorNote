@@ -55,12 +55,12 @@
 				EDEE02331E6382AB002542D2 /* Folders Scene */,
 				EDEE02341E6382BB002542D2 /* Notes Scene */,
 				EDEE020F1E637F66002542D2 /* EditingViewController.swift */,
-				ED91C5FE1E674C00002D4C54 /* ExtensionForString.swift */,
 				EDEE022D1E63821F002542D2 /* Main.storyboard */,
 				EDEE022B1E63821F002542D2 /* LaunchScreen.storyboard */,
 				EDEE02311E63823C002542D2 /* Assets.xcassets */,
 				EDEE02131E637F66002542D2 /* MirrorNote.xcdatamodeld */,
 				EDEE02121E637F66002542D2 /* Info.plist */,
+				ED91C5FE1E674C00002D4C54 /* ExtensionForString.swift */,
 				EDEE01F51E637F19002542D2 /* Products */,
 			);
 			sourceTree = "<group>";

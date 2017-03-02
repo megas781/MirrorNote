@@ -14,10 +14,29 @@ class EditingViewController: UIViewController, UITextViewDelegate {
    
    var editableNote: Note!
    
+   
+   
+   func doneButtonPressed(_ sender: UIBarButtonItem) {
+      
+      //Убираем клаву
+      textView.resignFirstResponder()
+      
+   }
+   
+   @IBOutlet weak var theNavigationItem: UINavigationItem!
+   
+
    override func viewDidLoad() {
       super.viewDidLoad()
       
       textView.delegate = self
+      
+      
+      
+//      textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+      print("mark")
+      
+      
       //Если нам удалось загрузить данные с помощью prepareForSegue...
       if editableNote != nil {
          textView.text = editableNote.content
@@ -29,6 +48,8 @@ class EditingViewController: UIViewController, UITextViewDelegate {
       //"Иполняй свой метод updateTextView когда приходит уведомление с именем UIKeyboardWillHide, т.е. клавиатура сейчас исчезнет"
       NotificationCenter.default.addObserver(self, selector: #selector(EditingViewController.updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
       
+      
+      
    }
    
    override func didReceiveMemoryWarning() {
@@ -38,6 +59,16 @@ class EditingViewController: UIViewController, UITextViewDelegate {
    
    //Создадим метод, обновляющий frame у textView, принимающий notification в качевсте аргумента
    func updateTextView(notification: Notification) {
+      
+      //Добавим кнопку Done
+      
+      if theNavigationItem.rightBarButtonItem == nil {
+      theNavigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(self.doneButtonPressed(_:))), animated: false)
+      } else {
+         theNavigationItem.setRightBarButton(nil, animated: true)
+      }
+      
+      
       
       //Сюда могут прийти только 2 сообщения: либо клава появится, либо исчезнет
       print("Имя соощения = \(notification.name.rawValue)")
@@ -53,11 +84,9 @@ class EditingViewController: UIViewController, UITextViewDelegate {
       
       
       //
-      
       if notification.name == Notification.Name.UIKeyboardWillShow {
          textView.contentInset = UIEdgeInsets.init(top: self.navigationController!.navigationBar.frame.size.height + 20, left: 0, bottom: keyboardFrame.height, right: 0)
       }
-      
       
       textView.scrollRangeToVisible(textView.selectedRange)
       
@@ -65,15 +94,25 @@ class EditingViewController: UIViewController, UITextViewDelegate {
    
    
    //Это чтобы прятать клаву, когда происходит касание вне textView
-   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-      super.touchesBegan(touches, with: event)
-      
-      //непосредственно метод, скрывающий textView
-      self.textView.resignFirstResponder()
-   }
+//   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//      super.touchesBegan(touches, with: event)
+//      
+//      //непосредственно метод, скрывающий textView
+//      self.textView.resignFirstResponder()
+//   }
    
    func textViewDidBeginEditing(_ textView: UITextView) {
       
+      
+      
+   }
+   
+   
+   override func viewWillAppear(_ animated: Bool) {
+      textView.isScrollEnabled = false
+   }
+   override func viewDidAppear(_ animated: Bool) {
+      textView.isScrollEnabled = true
    }
    
 }
