@@ -23,31 +23,29 @@ class NotesTableViewController: UITableViewController {
       
       tableView.tableFooterView = UIView(frame: .zero)
       
-      //Если возвращаемся из EditingViewController'a, то нужно обновить данные
       
-      do {
-         notesFetchRequest.sortDescriptors = []
-         notesFetchController = NSFetchedResultsController(fetchRequest: notesFetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-         try notesFetchController.performFetch()
-         
-         folder.notes = NSSet(array: notesFetchController.fetchedObjects!)
-         
-      } catch let error as NSError {
-         print(error.localizedDescription)
-      }
+      //Раз и навсегда инициализируем наш notesFetchController
+      notesFetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "dateOfCreation", ascending: true)]
       
-      notesList = folder.notes!.sortedArray(using: [NSSortDescriptor.init(key: "self.dateOfCreation", ascending: true)]) as! [Note]
-      print("notesList после присваивания = \(notesList)")
+      notesFetchRequest.predicate = NSPredicate(format: "folder = %@", folder)
       
-      
-      
+      notesFetchController = NSFetchedResultsController(fetchRequest: notesFetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
       
       
    }
    
-   override func didReceiveMemoryWarning() {
-      super.didReceiveMemoryWarning()
-      // Dispose of any resources that can be recreated.
+   override func viewWillAppear(_ animated: Bool) {
+      
+      //Здесь перезагружаем данные (Или загружаем, если в первый раз здесь)
+      do {
+         
+         try notesFetchController.performFetch()
+         notesList = notesFetchController.fetchedObjects!
+         tableView.reloadData()
+      } catch let error as NSError {
+         print(error.localizedDescription)
+      }
+      
    }
    
    // MARK: - Table view data source
@@ -66,105 +64,60 @@ class NotesTableViewController: UITableViewController {
    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! NotesTableViewCell
       
-      let info = notesList[indexPath.row]
-      
-      cell.note = info
+      cell.note = notesList[indexPath.row]
       
       return cell
    }
    
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      if segue.identifier == "FromSelectedCellToEditing" {
+      
+      switch segue.identifier! {
+      case "FromSelectedCellToEditing":
+         
          let dvc = segue.destination as! EditingViewController
          
-         //Передаем заметку в EditingViewController
-         dvc.editableNote = self.notesList[tableView.indexPathForSelectedRow!.row]
-         
          dvc.folderToContain = self.folder
-         
+         dvc.editableNote = notesList[tableView.indexPathForSelectedRow!.row]
          dvc.isNewNote = false
          
-      }
-      if segue.identifier == "createNewNote" {
+      case "createNewNote":
          
          let dvc = segue.destination as! EditingViewController
-         
-         dvc.editableNote = Note(context: context)
-         
          dvc.folderToContain = self.folder
          
+         let noteToDeliver = Note(context: context)
+         noteToDeliver.content = ""
+         //Добавлю эту дату, которую нужно будет заменить, просто для того, чтобы не было nil
+         noteToDeliver.dateOfCreation = Date() as NSDate
          dvc.isNewNote = true
          
+      default:
+         break
       }
+      
+      
    }
    
-   
-   /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-    // Return false if you do not want the specified item to be editable.
-    return true
-    }
-    */
-   
-   /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-    if editingStyle == .delete {
-    // Delete the row from the data source
-    tableView.deleteRows(at: [indexPath], with: .fade)
-    } else if editingStyle == .insert {
-    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }    
-    }
-    */
-   
-   /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-    
-    }
-    */
-   
-   /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-    // Return false if you do not want the item to be re-orderable.
-    return true
-    }
-    */
-   
-   /*
     // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
    
    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
       
       let delete = UITableViewRowAction(style: .destructive, title: "Remove") { (action, indexPath) in
          
-         print("notesList.count = \(self.notesList.count)")
-         
-         //Удаляем из массива
-         let objectToDelete = self.notesList.remove(at: indexPath.row)
-         
-         tableView.deleteRows(at: [indexPath], with: .none)
-         
-         //Удаляем из хранилища и пытаемся сохранить
-         context.delete(objectToDelete)
-         
          do {
+            
+            context.delete(self.notesList.remove(at: indexPath.row))
             try context.save()
+            
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.reloadData()
+            
          } catch let error as NSError {
             print(error.localizedDescription)
          }
          
-         tableView.reloadData()
+         
       }
       
       return [delete]

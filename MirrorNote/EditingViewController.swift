@@ -11,7 +11,7 @@ import UIKit
 class EditingViewController: UIViewController, UITextViewDelegate, UINavigationControllerDelegate {
    
    @IBOutlet weak var textView: UITextView!
-   
+   @IBOutlet weak var theNavigationItem: UINavigationItem!
    
    
    var folderToContain: Folder!
@@ -28,20 +28,14 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
       
    }
    
-   @IBOutlet weak var theNavigationItem: UINavigationItem!
    
-
+   
    override func viewDidLoad() {
       super.viewDidLoad()
       
       textView.delegate = self
       
       
-      
-      //Если нам удалось загрузить данные с помощью prepareForSegue...
-      if editableNote != nil {
-         textView.text = editableNote.content
-      }
       
       //В этой строчке мы говорим, чтобы класс EditingViewController исполнял свой метод updateTextView когда получал уведомление под статическим названием NSNotification.Name.UIKeyboardWillShow
       NotificationCenter.default.addObserver(/*кто получает уведомление*/self, selector: /*что делать при получении уведомления*/#selector(EditingViewController.updateTextView(notification:)), name: /*Имя уведомления*/ NSNotification.Name.UIKeyboardWillShow, object: /*хз, что это*/ nil)
@@ -53,10 +47,6 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
       
    }
    
-   override func didReceiveMemoryWarning() {
-      super.didReceiveMemoryWarning()
-      // Dispose of any resources that can be recreated.
-   }
    
    //Создадим метод, обновляющий frame у textView, принимающий notification в качевсте аргумента
    func updateTextView(notification: Notification) {
@@ -64,7 +54,7 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
       //Добавим кнопку Done
       
       if theNavigationItem.rightBarButtonItem == nil {
-      theNavigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(self.doneButtonPressed(_:))), animated: false)
+         theNavigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(self.doneButtonPressed(_:))), animated: false)
       } else {
          theNavigationItem.setRightBarButton(nil, animated: true)
       }
@@ -95,59 +85,72 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
    
    
    //Это чтобы прятать клаву, когда происходит касание вне textView
-//   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//      super.touchesBegan(touches, with: event)
-//      
-//      //непосредственно метод, скрывающий textView
-//      self.textView.resignFirstResponder()
-//   }
+   //   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+   //      super.touchesBegan(touches, with: event)
+   //      
+   //      //непосредственно метод, скрывающий textView
+   //      self.textView.resignFirstResponder()
+   //   }
    
    func textViewDidEndEditing(_ textView: UITextView) {
-      print("textViewDidEndEditing")
+      print("textViewDidEndEditing method did execute")
+   }
+   
+   //Постоянно перезаписываем content в editableNote, чтобы успеть сохранить данные
+   func textViewDidChange(_ textView: UITextView) {
+      editableNote.content = textView.text!
+//      print("current content = \(editableNote.content!)")   
    }
    
    
    override func viewWillAppear(_ animated: Bool) {
       textView.isScrollEnabled = false
+      
+      //Загружать данные лучше во viewWillAppear
+      textView.text = editableNote.content!
    }
    override func viewDidAppear(_ animated: Bool) {
       textView.isScrollEnabled = true
    }
    
-   func saveContent() {
-      
-      if isNewNote! {
-         
-      }
-      
-   }
-   
-   
-   
    override func viewWillDisappear(_ animated: Bool) {
-      
       if isNewNote! {
          
-         editableNote.content = self.textView.text
+         //editableNote.content уже записан с помощью делегата, остается только дата
          editableNote.dateOfCreation = Date() as NSDate
          
-         folderToContain.notes = folderToContain.notes!.adding(editableNote) as NSSet
          
          
-         do {
-            try context.save()
-            
-         } catch let error as NSError {
-            print(error.localizedDescription)
-         }
+      } else {
          
       }
       
       
-      
-      
-      
    }
+   
+   
+   
+   
+   //   override func viewWillDisappear(_ animated: Bool) {
+   //      
+   //      if isNewNote! {
+   //         
+   //         editableNote.content = self.textView.text
+   //         editableNote.dateOfCreation = Date() as NSDate
+   //         
+   //         folderToContain.notes = folderToContain.notes!.adding(editableNote) as NSSet
+   //         
+   //         
+   //         do {
+   //            try context.save()
+   //            
+   //         } catch let error as NSError {
+   //            print(error.localizedDescription)
+   //         }
+   //         
+   //      }
+   // 
+   //   }
    
    deinit {
       NotificationCenter.default.removeObserver(self)

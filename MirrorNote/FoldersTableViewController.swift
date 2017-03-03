@@ -19,14 +19,7 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
    
    
    @IBAction func addNewFolder(_ sender: UIBarButtonItem) {
-
-      if ac.textFields!.count < 1 {
-         ac.addTextField { (textField) in
-            textField.keyboardType = .default
-            textField.placeholder = "Folder name"
-            textField.delegate = self
-         }
-      }
+      
       
       
       if ac.actions.count < 2 {
@@ -43,7 +36,8 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
             
             do {
                try context.save()
-               try self.foldersFetchController.performFetch()
+               try self.folderFetchController.performFetch()
+               ac.textFields!.first!.text = ""
             } catch let error as NSError {
                print("Не удалось сохранить данные: \(error.localizedDescription)")
             }
@@ -62,32 +56,35 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
       
    }
    
-   var foldersFetchRequest: NSFetchRequest<Folder>! = Folder.fetchRequest()
+   var folderFetchRequest: NSFetchRequest<Folder>! = Folder.fetchRequest()
    
-   var foldersFetchController: NSFetchedResultsController<Folder>!
+   var folderFetchController: NSFetchedResultsController<Folder>!
    
    var folderList: [Folder]! = []
    
    
    //Это на всякий случай
-   var notesFetchController: NSFetchedResultsController<Note>!
+   var noteFetchController: NSFetchedResultsController<Note>!
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      
+      //Важное
       tableView.tableFooterView = UIView(frame: .zero)
-     
-      
       //Добавляем лишь однажды
       ac.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
-      
+      //Лишь однажды добавляем textField
+      ac.addTextField { (textField) in
+         textField.keyboardType = .default
+         textField.placeholder = "Folder name"
+         textField.delegate = self
+      }
       
       //Смотрим: если хранилище с папками пустое, то создаем новую папку под названием "Default folder"
       do {
-         foldersFetchRequest.sortDescriptors = []
-         foldersFetchController = NSFetchedResultsController(fetchRequest: foldersFetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-         try foldersFetchController.performFetch()
-         folderList = foldersFetchController.fetchedObjects
+         folderFetchRequest.sortDescriptors = []
+         folderFetchController = NSFetchedResultsController(fetchRequest: folderFetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+         try folderFetchController.performFetch()
+         folderList = folderFetchController.fetchedObjects
          //Если хранилище пустое, то...
          if folderList.isEmpty {
             
@@ -106,28 +103,41 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
                print("Не удалось сохранить данные: \(error.localizedDescription)")
             }
             
-            try foldersFetchController.performFetch()
+            try folderFetchController.performFetch()
             
          } else {
             // do nothing
             print("Успешное извлеение данных из хранилища")
          }
          
-         
       } catch let error as NSError {
          print("Не удалось получить данные о папках: \(error.localizedDescription)")
       }
       
-      if !folderList.isEmpty {
-         
-         //Мы остановились на добавлении кнопки edit
-         
-      }
+      //Тестовые заметки
+      let m = Note(context: context)
+      m.content = "testFirst Тестовый текст для первой заметки"
+      m.dateOfCreation = Date() as NSDate
+      let n = Note(context: context)
+      n.content = "testSecond Тестовый текст для второй заметки"
+      n.dateOfCreation = Date() as NSDate
       
+      //ДОбавляем, но не в базу данных, т.е. no save
+      folderList.first!.addToNotes(m)
+      folderList.first!.addToNotes(n)
       
    }
    
-   
+   override func viewWillAppear(_ animated: Bool) {
+      
+      do {
+         try folderFetchController.performFetch()
+         folderList = folderFetchController.fetchedObjects!
+         tableView.reloadData()
+      } catch let error as NSError {
+         print(error.localizedDescription)
+      }
+   }
    
    override func numberOfSections(in tableView: UITableView) -> Int {
       return 1
@@ -203,7 +213,7 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
          
          let dvc = segue.destination as! NotesTableViewController
          
-         dvc.folder = foldersFetchController.object(at: tableView.indexPathForSelectedRow!)
+         dvc.folder = folderFetchController.object(at: tableView.indexPathForSelectedRow!)
          
          
       default:
@@ -216,23 +226,14 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
       
       let remove = UITableViewRowAction(style: .destructive, title: "Remove") { (action, indexPath) in
-         
          do {
-            
-            let objectToRemove = self.foldersFetchController.object(at: indexPath)
-            context.delete(objectToRemove)
-            self.folderList.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            
-            
-            try context.save()
-            try self.foldersFetchController.performFetch()
-            
-            
-         } catch let error as NSError {
+         context.delete(self.folderList.remove(at: indexPath.row))
+         try context.save()
+         tableView.deleteRows(at: [indexPath], with: .automatic)
+         tableView.reloadData()
+         } catch let error as NSError  {
             print(error.localizedDescription)
          }
-         
       }
       
       
