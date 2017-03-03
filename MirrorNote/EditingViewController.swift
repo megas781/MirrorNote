@@ -17,6 +17,8 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
    var folderToContain: Folder!
    var editableNote: Note!
    
+   var primalText: String!
+   
    var isNewNote: Bool!
    
    
@@ -35,7 +37,7 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
       
       textView.delegate = self
       
-      
+      primalText = editableNote.content!
       
       //В этой строчке мы говорим, чтобы класс EditingViewController исполнял свой метод updateTextView когда получал уведомление под статическим названием NSNotification.Name.UIKeyboardWillShow
       NotificationCenter.default.addObserver(/*кто получает уведомление*/self, selector: /*что делать при получении уведомления*/#selector(EditingViewController.updateTextView(notification:)), name: /*Имя уведомления*/ NSNotification.Name.UIKeyboardWillShow, object: /*хз, что это*/ nil)
@@ -119,8 +121,21 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
       print("textView.text = \"\(textView.text ?? "nil text")\"")
       
       guard textView.text != "" else {
+         
          editableNote.folder = nil
+         
+         //сохрани контекст
+         do {
+            try context.save()
+         } catch let error as NSError {
+            print(error.localizedDescription)
+         }
+         
          print("Пустое поле, заметка не сохранена")
+         return
+      }
+      
+      guard editableNote.content != primalText else {
          return
       }
       
