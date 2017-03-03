@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED91C5FF1E674C00002D4C54 /* ExtensionForString.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91C5FE1E674C00002D4C54 /* ExtensionForString.swift */; };
 		EDEE02171E637F66002542D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEE020C1E637F66002542D2 /* AppDelegate.swift */; };
 		EDEE021A1E637F66002542D2 /* EditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEE020F1E637F66002542D2 /* EditingViewController.swift */; };
 		EDEE021B1E637F66002542D2 /* FoldersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEE02101E637F66002542D2 /* FoldersTableViewCell.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ED91C5FE1E674C00002D4C54 /* ExtensionForString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionForString.swift; path = ../ExtensionForString.swift; sourceTree = "<group>"; };
 		EDEE01F41E637F19002542D2 /* MirrorNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MirrorNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDEE020C1E637F66002542D2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = MirrorNote/AppDelegate.swift; sourceTree = "<group>"; };
 		EDEE020F1E637F66002542D2 /* EditingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditingViewController.swift; path = MirrorNote/EditingViewController.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 				EDEE02311E63823C002542D2 /* Assets.xcassets */,
 				EDEE02131E637F66002542D2 /* MirrorNote.xcdatamodeld */,
 				EDEE02121E637F66002542D2 /* Info.plist */,
+				ED91C5FE1E674C00002D4C54 /* ExtensionForString.swift */,
 				EDEE01F51E637F19002542D2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -169,6 +172,7 @@
 				EDEE021C1E637F66002542D2 /* FoldersTableViewController.swift in Sources */,
 				EDEE021B1E637F66002542D2 /* FoldersTableViewCell.swift in Sources */,
 				EDEE021F1E637F66002542D2 /* NotesTableViewCell.swift in Sources */,
+				ED91C5FF1E674C00002D4C54 /* ExtensionForString.swift in Sources */,
 				EDEE02201E637F66002542D2 /* NotesTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -334,6 +338,7 @@
 				EDEE020B1E637F19002542D2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
