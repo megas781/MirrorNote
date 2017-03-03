@@ -19,14 +19,7 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
    
    
    @IBAction func addNewFolder(_ sender: UIBarButtonItem) {
-
-      if ac.textFields!.count < 1 {
-         ac.addTextField { (textField) in
-            textField.keyboardType = .default
-            textField.placeholder = "Folder name"
-            textField.delegate = self
-         }
-      }
+      
       
       
       if ac.actions.count < 2 {
@@ -43,7 +36,8 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
             
             do {
                try context.save()
-               try self.foldersFetchController.performFetch()
+               try self.folderFetchController.performFetch()
+               ac.textFields!.first!.text = ""
             } catch let error as NSError {
                print("Не удалось сохранить данные: \(error.localizedDescription)")
             }
@@ -62,32 +56,35 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
       
    }
    
-   var foldersFetchRequest: NSFetchRequest<Folder>! = Folder.fetchRequest()
+   var folderFetchRequest: NSFetchRequest<Folder>! = Folder.fetchRequest()
    
-   var foldersFetchController: NSFetchedResultsController<Folder>!
+   var folderFetchController: NSFetchedResultsController<Folder>!
    
    var folderList: [Folder]! = []
    
    
    //Это на всякий случай
-   var notesFetchController: NSFetchedResultsController<Note>!
+   var noteFetchController: NSFetchedResultsController<Note>!
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      
+      //Важное
       tableView.tableFooterView = UIView(frame: .zero)
-     
-      
       //Добавляем лишь однажды
       ac.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
-      
+      //Лишь однажды добавляем textField
+      ac.addTextField { (textField) in
+         textField.keyboardType = .default
+         textField.placeholder = "Folder name"
+         textField.delegate = self
+      }
       
       //Смотрим: если хранилище с папками пустое, то создаем новую папку под названием "Default folder"
       do {
-         foldersFetchRequest.sortDescriptors = []
-         foldersFetchController = NSFetchedResultsController(fetchRequest: foldersFetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-         try foldersFetchController.performFetch()
-         folderList = foldersFetchController.fetchedObjects
+         folderFetchRequest.sortDescriptors = []
+         folderFetchController = NSFetchedResultsController(fetchRequest: folderFetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+         try folderFetchController.performFetch()
+         folderList = folderFetchController.fetchedObjects
          //Если хранилище пустое, то...
          if folderList.isEmpty {
             
@@ -106,31 +103,41 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
                print("Не удалось сохранить данные: \(error.localizedDescription)")
             }
             
-            try foldersFetchController.performFetch()
+            try folderFetchController.performFetch()
             
          } else {
             // do nothing
             print("Успешное извлеение данных из хранилища")
          }
          
-         
       } catch let error as NSError {
          print("Не удалось получить данные о папках: \(error.localizedDescription)")
       }
       
-      if !folderList.isEmpty {
-         
-         //Мы остановились на добавлении кнопки edit
-         
-      }
+//      //Тестовые заметки
+//      let m = Note(context: context)
+//      m.content = "testFirst Тестовый текст для первой заметки"
+//      m.dateOfCreation = Date() as NSDate
+//      let n = Note(context: context)
+//      n.content = "testSecond Тестовый текст для второй заметки"
+//      n.dateOfCreation = Date() as NSDate
+//      
+//      //ДОбавляем, но не в базу данных, т.е. no save
+//      folderList.first!.addToNotes(m)
+//      folderList.first!.addToNotes(n)
       
-      let n = Note(context: context)
-      n.content = " Рылеева всегда отличали исключительная честность и бескорыстие. Он хранил в чистоте звание революционера. Эти благородные нравственные качества Рылеев поэтизировал и в героях своих произведений. К ним принадлежал центральный образ поэмы «Войнаровский». В ней Рылеев стремился к исторической правдивости и психологической конкретности. Он придавал серьезное значение описаниям сибирского края, добиваясь этнографической, географической и бытовой точности. Рылеев ввел в поэму множество реальных подробностей, касающихся природы, обычаев и быта сурового края. В основу поэмы Рылеев положил действительное историческое событие, намереваясь подчеркнуть масштабность и драматизм личных судеб героев – Войнаровского, его жены и Мазепы. Автор в поэме намеренно отделен от героя. Благодаря широкому историческому фону, на котором выступает реальный исторический герой – личность незаурядная, волевая, целеустремленная, в «Войнаровском» усилен по сравнению с думами повествовательный элемент. Однако поэма Рылеева оставалась романтической. Хотя герой и отделился от автора, он выступал носителем авторских идей. Личность Войнаровского была в поэме идеализирована, эмоционально приподнята. С исторической точки зрения Войнаровский – изменник. Он, как и Мазепа, хотел отделить Украину от России, переметнулся к врагам Петра I и получал чины и награды то от польских магнатов, то от шведского короля Карла XII. В поэме же Рылеева Войнаровский – республиканец и тиран6оборец. Он говорит о себе: «Чтить Брута с детства я привык». Образ Войнаровского у Рылеева раздвоился: с одной стороны, Войнаровский изображен лично честным и не посвященным в замыслы Мазепы. Он не может нести ответственность за тайные намерения изменника, поскольку они ему неизвестны. С другой стороны, Рылеев связывает Войнаровского с исторически несправедливым общественным движением, и герой в ссылке задумывается над реальным содержанием своей деятельности, пытаясь понять, был ли он игрушкой в руках Мазепы или сподвижником гетмана. Это позволяет поэту сохранить высокий образ героя и одновременно показать Войнаровского на духовном распутье. В отличие от томящихся в тюрьме или изгнании героев дум, которые остаются цельными личностями, нисколько не сомневаются в правоте своего дела и в уважении потомства, ссыльный Войнаровский уже не вполне убежден в своей справедливости, да и умирает он без всякой надежды на народную память, потерянный и забытый. "
-      n.dateOfCreation = Date() as NSDate
-      folderList.first!.notes = folderList.first!.notes?.addingObjects(from: [n]) as NSSet!
    }
    
-   
+   override func viewWillAppear(_ animated: Bool) {
+      
+      do {
+         try folderFetchController.performFetch()
+         folderList = folderFetchController.fetchedObjects!
+         tableView.reloadData()
+      } catch let error as NSError {
+         print(error.localizedDescription)
+      }
+   }
    
    override func numberOfSections(in tableView: UITableView) -> Int {
       return 1
@@ -206,7 +213,7 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
          
          let dvc = segue.destination as! NotesTableViewController
          
-         dvc.folder = foldersFetchController.object(at: tableView.indexPathForSelectedRow!)
+         dvc.folder = folderFetchController.object(at: tableView.indexPathForSelectedRow!)
          
          
       default:
@@ -219,23 +226,14 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
       
       let remove = UITableViewRowAction(style: .destructive, title: "Remove") { (action, indexPath) in
-         
          do {
-            
-            let objectToRemove = self.foldersFetchController.object(at: indexPath)
-            context.delete(objectToRemove)
-            self.folderList.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            
-            
-            try context.save()
-            try self.foldersFetchController.performFetch()
-            
-            
-         } catch let error as NSError {
+         context.delete(self.folderList.remove(at: indexPath.row))
+         try context.save()
+         tableView.deleteRows(at: [indexPath], with: .fade)
+         tableView.reloadData()
+         } catch let error as NSError  {
             print(error.localizedDescription)
          }
-         
       }
       
       
