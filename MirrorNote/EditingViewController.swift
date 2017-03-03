@@ -12,7 +12,12 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
    
    @IBOutlet weak var textView: UITextView!
    
+   
+   
+   var folderToContain: Folder!
    var editableNote: Note!
+   
+   var isNewNote: Bool!
    
    
    
@@ -31,10 +36,6 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
       
       textView.delegate = self
       
-      
-      
-//      textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-      print("mark")
       
       
       //Если нам удалось загрузить данные с помощью prepareForSegue...
@@ -101,10 +102,8 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
 //      self.textView.resignFirstResponder()
 //   }
    
-   func textViewDidBeginEditing(_ textView: UITextView) {
-      
-      
-      
+   func textViewDidEndEditing(_ textView: UITextView) {
+      print("textViewDidEndEditing")
    }
    
    
@@ -113,6 +112,41 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
    }
    override func viewDidAppear(_ animated: Bool) {
       textView.isScrollEnabled = true
+   }
+   
+   func saveContent() {
+      
+      if isNewNote! {
+         
+      }
+      
+   }
+   
+   
+   
+   override func viewWillDisappear(_ animated: Bool) {
+      
+      if isNewNote! {
+         
+         editableNote.content = self.textView.text
+         editableNote.dateOfCreation = Date() as NSDate
+         
+         folderToContain.notes = folderToContain.notes!.adding(editableNote) as NSSet
+         
+         
+         do {
+            try context.save()
+            
+         } catch let error as NSError {
+            print(error.localizedDescription)
+         }
+         
+      }
+      
+      
+      
+      
+      
    }
    
    deinit {

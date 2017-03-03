@@ -23,6 +23,19 @@ class NotesTableViewController: UITableViewController {
       
       tableView.tableFooterView = UIView(frame: .zero)
       
+      //Если возвращаемся из EditingViewController'a, то нужно обновить данные
+      
+      do {
+         notesFetchRequest.sortDescriptors = []
+         notesFetchController = NSFetchedResultsController(fetchRequest: notesFetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+         try notesFetchController.performFetch()
+         
+         folder.notes = NSSet(array: notesFetchController.fetchedObjects!)
+         
+      } catch let error as NSError {
+         print(error.localizedDescription)
+      }
+      
       notesList = folder.notes!.sortedArray(using: [NSSortDescriptor.init(key: "self.dateOfCreation", ascending: true)]) as! [Note]
       print("notesList после присваивания = \(notesList)")
       
@@ -66,6 +79,21 @@ class NotesTableViewController: UITableViewController {
          
          //Передаем заметку в EditingViewController
          dvc.editableNote = self.notesList[tableView.indexPathForSelectedRow!.row]
+         
+         dvc.folderToContain = self.folder
+         
+         dvc.isNewNote = false
+         
+      }
+      if segue.identifier == "createNewNote" {
+         
+         let dvc = segue.destination as! EditingViewController
+         
+         dvc.editableNote = Note(context: context)
+         
+         dvc.folderToContain = self.folder
+         
+         dvc.isNewNote = true
          
       }
    }
@@ -120,8 +148,12 @@ class NotesTableViewController: UITableViewController {
       
       let delete = UITableViewRowAction(style: .destructive, title: "Remove") { (action, indexPath) in
          
+         print("notesList.count = \(self.notesList.count)")
+         
          //Удаляем из массива
          let objectToDelete = self.notesList.remove(at: indexPath.row)
+         
+         tableView.deleteRows(at: [indexPath], with: .none)
          
          //Удаляем из хранилища и пытаемся сохранить
          context.delete(objectToDelete)
@@ -132,6 +164,7 @@ class NotesTableViewController: UITableViewController {
             print(error.localizedDescription)
          }
          
+         tableView.reloadData()
       }
       
       return [delete]
