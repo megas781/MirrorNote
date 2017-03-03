@@ -113,15 +113,38 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
       textView.isScrollEnabled = true
    }
    
+   //При сворачивании viewController'a происходит сохранение
    override func viewWillDisappear(_ animated: Bool) {
+      
+      print("textView.text = \"\(textView.text ?? "nil text")\"")
+      
+      guard textView.text != "" else {
+         editableNote.folder = nil
+         print("Пустое поле, заметка не сохранена")
+         return
+      }
+      
       if isNewNote! {
          
          //editableNote.content уже записан с помощью делегата, остается только дата
          editableNote.dateOfCreation = Date() as NSDate
          
-         
+         //У нас есть непустой content, дата создания и folder для editableNote уже предопределена в prepare в NotesTableViewController
+         do {
+            try context.save()
+         } catch let error as NSError {
+            print(error.localizedDescription)
+         }
          
       } else {
+         
+         editableNote.dateOfCreation = Date() as NSDate
+         
+         do {
+            try context.save()
+         } catch let error as NSError {
+            print(error.localizedDescription)
+         }
          
       }
       

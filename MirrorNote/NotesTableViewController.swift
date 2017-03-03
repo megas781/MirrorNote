@@ -25,7 +25,7 @@ class NotesTableViewController: UITableViewController {
       
       
       //Раз и навсегда инициализируем наш notesFetchController
-      notesFetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "dateOfCreation", ascending: true)]
+      notesFetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "dateOfCreation", ascending: false)]
       
       notesFetchRequest.predicate = NSPredicate(format: "folder = %@", folder)
       
@@ -89,6 +89,9 @@ class NotesTableViewController: UITableViewController {
          noteToDeliver.content = ""
          //Добавлю эту дату, которую нужно будет заменить, просто для того, чтобы не было nil
          noteToDeliver.dateOfCreation = Date() as NSDate
+         noteToDeliver.folder = dvc.folderToContain
+         dvc.editableNote = noteToDeliver
+         
          dvc.isNewNote = true
          
       default:
@@ -110,7 +113,7 @@ class NotesTableViewController: UITableViewController {
             context.delete(self.notesList.remove(at: indexPath.row))
             try context.save()
             
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.reloadData()
             
          } catch let error as NSError {

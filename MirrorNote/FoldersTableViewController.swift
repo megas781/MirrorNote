@@ -114,17 +114,17 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
          print("Не удалось получить данные о папках: \(error.localizedDescription)")
       }
       
-      //Тестовые заметки
-      let m = Note(context: context)
-      m.content = "testFirst Тестовый текст для первой заметки"
-      m.dateOfCreation = Date() as NSDate
-      let n = Note(context: context)
-      n.content = "testSecond Тестовый текст для второй заметки"
-      n.dateOfCreation = Date() as NSDate
-      
-      //ДОбавляем, но не в базу данных, т.е. no save
-      folderList.first!.addToNotes(m)
-      folderList.first!.addToNotes(n)
+//      //Тестовые заметки
+//      let m = Note(context: context)
+//      m.content = "testFirst Тестовый текст для первой заметки"
+//      m.dateOfCreation = Date() as NSDate
+//      let n = Note(context: context)
+//      n.content = "testSecond Тестовый текст для второй заметки"
+//      n.dateOfCreation = Date() as NSDate
+//      
+//      //ДОбавляем, но не в базу данных, т.е. no save
+//      folderList.first!.addToNotes(m)
+//      folderList.first!.addToNotes(n)
       
    }
    
@@ -229,7 +229,7 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
          do {
          context.delete(self.folderList.remove(at: indexPath.row))
          try context.save()
-         tableView.deleteRows(at: [indexPath], with: .automatic)
+         tableView.deleteRows(at: [indexPath], with: .fade)
          tableView.reloadData()
          } catch let error as NSError  {
             print(error.localizedDescription)
