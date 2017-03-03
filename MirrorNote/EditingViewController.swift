@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditingViewController: UIViewController, UITextViewDelegate {
+class EditingViewController: UIViewController, UITextViewDelegate, UINavigationControllerDelegate {
    
    @IBOutlet weak var textView: UITextView!
    
@@ -113,6 +113,10 @@ class EditingViewController: UIViewController, UITextViewDelegate {
    }
    override func viewDidAppear(_ animated: Bool) {
       textView.isScrollEnabled = true
+   }
+   
+   deinit {
+      NotificationCenter.default.removeObserver(self)
    }
    
 }
