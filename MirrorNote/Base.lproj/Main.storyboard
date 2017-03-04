@@ -23,7 +23,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NUk-fU-QT6" id="hQm-Bq-AaE">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Prototype Name of Folder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TYD-4c-JzD">
@@ -87,7 +87,7 @@
             </objects>
             <point key="canvasLocation" x="1256.8" y="155.17241379310346"/>
         </scene>
-        <!--Notes Table View Controller-->
+        <!--Notes-->
         <scene sceneID="YG0-5f-xug">
             <objects>
                 <tableViewController id="4TN-P8-qRY" customClass="NotesTableViewController" customModule="MirrorNote" customModuleProvider="target" sceneMemberID="viewController">
@@ -101,7 +101,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mQw-5s-3uY" id="J1T-aK-GAK">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Первая строка" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q42-8b-K70">
@@ -170,6 +170,7 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
+                    <navigationItem key="navigationItem" title="Notes" id="A8q-Rf-eSH"/>
                     <connections>
                         <outlet property="buttonLabel" destination="rUp-tx-8uF" id="JRD-Em-gv4"/>
                     </connections>
@@ -178,7 +179,7 @@
             </objects>
             <point key="canvasLocation" x="2010" y="154"/>
         </scene>
-        <!--Editing View Controller-->
+        <!--Editing-->
         <scene sceneID="0KH-dE-SCE">
             <objects>
                 <viewController id="fFE-EW-hKF" customClass="EditingViewController" customModule="MirrorNote" customModuleProvider="target" sceneMemberID="viewController">
@@ -190,24 +191,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" directionalLockEnabled="YES" alwaysBounceVertical="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qKC-VD-qKx">
-                                <rect key="frame" x="16" y="0.0" width="343" height="667"/>
-                                <color key="backgroundColor" red="0.0" green="1" blue="0.94141566227042262" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ec2-J1-vsj">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" red="0.0014924803981557488" green="0.99991482496261597" blue="0.94201183319091797" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="bottomMargin" secondItem="qKC-VD-qKx" secondAttribute="bottom" id="35t-GB-FVA"/>
-                            <constraint firstItem="qKC-VD-qKx" firstAttribute="leading" secondItem="QmS-DN-E5H" secondAttribute="leadingMargin" id="9yt-Ke-1h9"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="qKC-VD-qKx" secondAttribute="trailing" id="O77-43-kEF"/>
-                            <constraint firstItem="qKC-VD-qKx" firstAttribute="top" secondItem="QmS-DN-E5H" secondAttribute="topMargin" id="UEw-Ad-GoE"/>
+                            <constraint firstItem="Ec2-J1-vsj" firstAttribute="top" secondItem="QmS-DN-E5H" secondAttribute="top" id="Blo-iD-aE4"/>
+                            <constraint firstAttribute="bottom" secondItem="Ec2-J1-vsj" secondAttribute="bottom" id="FKy-mS-EBo"/>
+                            <constraint firstItem="Ec2-J1-vsj" firstAttribute="leading" secondItem="QmS-DN-E5H" secondAttribute="leading" id="Nqz-j3-cTC"/>
+                            <constraint firstAttribute="trailing" secondItem="Ec2-J1-vsj" secondAttribute="trailing" id="goa-a0-80i"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Editing" id="BfB-Dk-qSv"/>
                     <connections>
-                        <outlet property="textView" destination="qKC-VD-qKx" id="bd1-9o-aSP"/>
+                        <outlet property="textView" destination="Ec2-J1-vsj" id="5oe-gA-493"/>
+                        <outlet property="theNavigationItem" destination="BfB-Dk-qSv" id="xFJ-4B-KrX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E1E-mp-ME0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -221,7 +225,7 @@
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
-                    <navigationBar key="navigationBar" opaque="NO" contentMode="scaleToFill" misplaced="YES" id="Ct5-e4-gTB">
+                    <navigationBar key="navigationBar" opaque="NO" contentMode="scaleToFill" id="Ct5-e4-gTB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.0" green="1" blue="0.82394123080000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -244,6 +248,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Fdn-r7-ofQ"/>
+        <segue reference="WZj-nP-UfT"/>
     </inferredMetricsTieBreakers>
 </document>
