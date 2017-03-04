@@ -39,6 +39,11 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
       
       primalText = editableNote.content!
       
+      //Если мы создаем новую заметку, то textView сразу становится firstResponder
+      if isNewNote! {
+         textView.becomeFirstResponder()
+      }
+      
       //В этой строчке мы говорим, чтобы класс EditingViewController исполнял свой метод updateTextView когда получал уведомление под статическим названием NSNotification.Name.UIKeyboardWillShow
       NotificationCenter.default.addObserver(/*кто получает уведомление*/self, selector: /*что делать при получении уведомления*/#selector(EditingViewController.updateTextView(notification:)), name: /*Имя уведомления*/ NSNotification.Name.UIKeyboardWillShow, object: /*хз, что это*/ nil)
       
