@@ -44,6 +44,7 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
             
             self.tableView.reloadData()
             
+            create.isEnabled = false
          })
          
          create.isEnabled = false
@@ -133,10 +134,20 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
       do {
          try folderFetchController.performFetch()
          folderList = folderFetchController.fetchedObjects!
-         tableView.reloadData()
+         //Осторожно, перенес "tableView.reloadData()", чтобы пользователь успел увидеть, откуда он вернулся
+         
+         //Для красивого растворения выделения
+         if tableView.indexPathForSelectedRow != nil {
+            tableView.deselectRow(at: tableView.indexPathForSelectedRow!, animated: true) 
+         }
+         
       } catch let error as NSError {
          print(error.localizedDescription)
       }
+   }
+   
+   override func viewDidAppear(_ animated: Bool) {
+      tableView.reloadData()
    }
    
    override func numberOfSections(in tableView: UITableView) -> Int {
