@@ -173,28 +173,6 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
    
    
    
-   
-   //   override func viewWillDisappear(_ animated: Bool) {
-   //      
-   //      if isNewNote! {
-   //         
-   //         editableNote.content = self.textView.text
-   //         editableNote.dateOfCreation = Date() as NSDate
-   //         
-   //         folderToContain.notes = folderToContain.notes!.adding(editableNote) as NSSet
-   //         
-   //         
-   //         do {
-   //            try context.save()
-   //            
-   //         } catch let error as NSError {
-   //            print(error.localizedDescription)
-   //         }
-   //         
-   //      }
-   // 
-   //   }
-   
    deinit {
       NotificationCenter.default.removeObserver(self)
    }

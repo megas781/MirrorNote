@@ -160,6 +160,11 @@
                     </tableView>
                     <toolbarItems>
                         <barButtonItem id="IIc-8h-18I"/>
+                        <barButtonItem systemItem="refresh" id="5Qb-9b-Th8">
+                            <connections>
+                                <action selector="refresh:" destination="4TN-P8-qRY" id="gok-jd-uJX"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="2Yl-UY-Dud"/>
                         <barButtonItem title="Item" id="rUp-tx-8uF"/>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="7J7-8R-AAI"/>
@@ -173,9 +178,18 @@
                     <navigationItem key="navigationItem" title="Notes" id="A8q-Rf-eSH"/>
                     <connections>
                         <outlet property="buttonLabel" destination="rUp-tx-8uF" id="JRD-Em-gv4"/>
+                        <outlet property="searchDisplayController" destination="3rj-jp-VHZ" id="E8V-3R-Dj5"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sez-EQ-OMW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="3rj-jp-VHZ">
+                    <connections>
+                        <outlet property="delegate" destination="4TN-P8-qRY" id="ETn-nD-Xdz"/>
+                        <outlet property="searchContentsController" destination="4TN-P8-qRY" id="WND-ql-2Yh"/>
+                        <outlet property="searchResultsDataSource" destination="4TN-P8-qRY" id="DaB-NH-SiM"/>
+                        <outlet property="searchResultsDelegate" destination="4TN-P8-qRY" id="ci0-pn-u0x"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="2010" y="154"/>
         </scene>
