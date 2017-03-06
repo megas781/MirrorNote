@@ -10,13 +10,32 @@ import UIKit
 
 class NotesTableViewCell: UITableViewCell {
    
+   var theViewController : NotesTableViewController!
+   
    var note: Note! {
       willSet {
          //Потом допили логику
          
+         //Название заметки
          firstLineLabel.text = newValue.content!
+         
+
          dateOfCreationLabel.text = DateFormatter.localizedString(from: newValue.dateOfCreation! as Date, dateStyle: .short, timeStyle: .none)
-         additionalLabel.text = "Потом добавим логику additional label'a"
+         
+         
+         //Logic of additional text
+         if theViewController.searchController.isActive && theViewController.searchBar.text != "" {
+            
+            additionalLabel.text = "ищешь, я знаю"
+            
+         } else {
+            additionalLabel.text = "неа, не ищешь"
+         }
+         
+         
+         
+         
+         
       }
    }
    
