@@ -83,7 +83,28 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
       
       //
       if notification.name == Notification.Name.UIKeyboardWillShow {
+         
+         if textView == nil {
+            print("textView = nil")
+            
+         } else {
+            print("textView.contentInset = \(textView.contentInset)")
+            
+         }
+         
+         //Черт его знает... 
+//         if navigationController?.navigationBar.frame.size.height != nil {
+//            
+//            textView.contentInset = UIEdgeInsets.init(top: self.navigationController!.navigationBar.frame.size.height + 20, left: 0, bottom: keyboardFrame.height, right: 0)
+//            
+//         } else {
+//            
+//            
+//            
+//         }
+         
          textView.contentInset = UIEdgeInsets.init(top: self.navigationController!.navigationBar.frame.size.height + 20, left: 0, bottom: keyboardFrame.height, right: 0)
+         
       }
       
       textView.scrollRangeToVisible(textView.selectedRange)
@@ -168,7 +189,7 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
          
       }
       
-      
+      NotificationCenter.default.removeObserver(self)
    }
    
    
