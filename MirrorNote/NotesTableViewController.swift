@@ -156,7 +156,7 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
    
    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! NotesTableViewCell
-      
+      cell.theViewController = self
       cell.note = properNote(at: indexPath.row)
       
       return cell
