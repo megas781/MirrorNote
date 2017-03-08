@@ -45,7 +45,7 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
       }
       
       //В этой строчке мы говорим, чтобы класс EditingViewController исполнял свой метод updateTextView когда получал уведомление под статическим названием NSNotification.Name.UIKeyboardWillShow
-      NotificationCenter.default.addObserver(/*кто получает уведомление*/self, selector: /*что делать при получении уведомления*/#selector(EditingViewController.updateTextView(notification:)), name: /*Имя уведомления*/ NSNotification.Name.UIKeyboardWillShow, object: /*хз, что это*/ nil)
+      NotificationCenter.default.addObserver(self, selector: #selector(EditingViewController.updateTextView(notification:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil)
       
       //"Иполняй свой метод updateTextView когда приходит уведомление с именем UIKeyboardWillHide, т.е. клавиатура сейчас исчезнет"
       NotificationCenter.default.addObserver(self, selector: #selector(EditingViewController.updateTextView(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -133,6 +133,8 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
    
    override func viewWillAppear(_ animated: Bool) {
       textView.isScrollEnabled = false
+      
+      
       
       //Загружать данные лучше во viewWillAppear
       textView.text = editableNote.content!
