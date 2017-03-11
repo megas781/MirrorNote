@@ -118,8 +118,11 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
    
    @IBAction func refresh(_ sender: UIBarButtonItem) {
       
-//      tableView.setContentOffset(CGPoint.init(x: 0, y: -self.navigationController!.navigationBar.frame.height - 20 + self.searchController.searchBar.frame.height), animated: true)
-      
+      if (tableView.cellForRow(at: IndexPath.init(row: 3, section: 0)) as! NotesTableViewCell).additionalLabel.text!.contains("\n") {
+         print("содержит ентр")
+      } else {
+         print("additional = \"\((tableView.cellForRow(at: IndexPath.init(row: 3, section: 0)) as! NotesTableViewCell).additionalLabel.text!)\"")
+      }
    }
    
    // MARK: - Table view data source
