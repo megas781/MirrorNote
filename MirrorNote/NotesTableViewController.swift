@@ -85,6 +85,7 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
          
       } catch let error as NSError {
          print(error.localizedDescription)
+         print("ОШИББББББКА")
       }
       
       if tableView.indexPathForSelectedRow != nil {
@@ -110,14 +111,8 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
    
    //Опустим content на размер searchBar'a
    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-//      
-//      print("до y = \(tableView.contentOffset.y)")
-//      print("до x = \(tableView.contentOffset.x)")
-//      
+      
 //      tableView.setContentOffset(.init(x: 0, y: 100), animated: true)
-//      
-//      print("после y = \(tableView.contentOffset.y)")
-//      print("после x = \(tableView.contentOffset.x)")
       
    }
    
@@ -148,15 +143,19 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
    //Когда возвращать заметку из фильтр-массива, а когда из обычного в метод cellForRowAt indexPath
    func properNote(at index: Int) -> Note {
       if searchController.isActive && searchBar.text != "" {
+         
          return filteredNoteList[index]
       } else {
+         
          return noteList[index]
       }
    }
    
    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! NotesTableViewCell
+      
       cell.theViewController = self
+      
       cell.note = properNote(at: indexPath.row)
       
       return cell
@@ -174,6 +173,7 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
       })
       
       tableView.reloadData()
+      
    }
    
    
@@ -240,6 +240,7 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
             
          } catch let error as NSError {
             print(error.localizedDescription)
+            print("ОШИББББББКА")
          }
          
          
