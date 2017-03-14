@@ -172,7 +172,7 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
       let result = searchController.searchBar.text!
       
       filteredNoteList = noteList.filter({ (note) -> Bool in
-         return note.content!.lowercased().contains(result.lowercased())
+         return note.content!.singleLine().lowercased().contains(result.lowercased())
       })
       
       tableView.reloadData()
