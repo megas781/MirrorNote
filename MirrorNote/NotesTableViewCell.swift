@@ -29,7 +29,7 @@ class NotesTableViewCell: UITableViewCell {
          //Перед началом логики нужно объявить основные переменные
          let noteContent = newValue.content!
          
-         var content = noteContent.singleLine()
+         let content = noteContent.singleLine()
          
          
          var textToShow = NSMutableAttributedString(string: "")
@@ -60,6 +60,53 @@ class NotesTableViewCell: UITableViewCell {
                
                
                //Здесь у нас есть postfixContainingResult
+              
+               //Хайлайтим firstLineLabel
+               do {
+                  
+                  textToShow = NSMutableAttributedString(string: newValue.content!)
+                  
+                  
+                  var index: Int? = nil
+                  //Ищем индекс
+                  if noteContent.contains("\n") {
+                     
+                     //Случай, если noteContent содержит enter'ы
+                     
+                     let label = noteContent.getPrefixWithFirstFoundSymbol("\n")
+                     exit: for i in 1...label.length {
+                        if label.getPrefixWithLength(i).lowercased().contains(result) {
+                           index = i - result.length
+                           break exit
+                        }
+                     }
+                  } else {
+                     //Случай если noteContent НЕ содержит enter'ы
+                     
+                     exit: for i in 1...noteContent.length {
+                        
+                        if noteContent.getPrefixWithLength(i).lowercased().contains(result) {
+                           
+                           index = i - result.length
+                           
+                           break exit
+                        }
+                        
+                     }
+                     
+                     
+                  }
+                     
+                  print("index = \(index)")
+                  
+                  if index != nil {
+                  textToShow.addAttribute(NSBackgroundColorAttributeName, value: UIColor.yellow, range: .init(location: index!, length: result.length))
+                  }
+                  
+                  firstLineLabel.attributedText = textToShow
+                  
+               }
+               
                //Теперь нужен displayedPostfix
                
                var displayedPostfix: String? = nil
@@ -84,8 +131,8 @@ class NotesTableViewCell: UITableViewCell {
                   //Тогда мы знаем, что первое слово содержит result
                   
                   //Сколько символов допустимо ДО result в content
-                  var allowedNumberOfSymbols : Int = 10
-                  
+                  let allowedNumberOfSymbols : Int = 10
+                  //test
                   
                   //В таком случае, если кол-во знаков перед искомым result не превышает 6 знаков, то мы пишем троеточние —> шесть знаков до -> postfixContainingResult
                   
@@ -118,6 +165,7 @@ class NotesTableViewCell: UITableViewCell {
                   //Просто отобразим displayedPostfix
                   
                   textToShow = NSMutableAttributedString(string: displayedPostfix!)
+                  
                   textToShow.addAttribute(NSBackgroundColorAttributeName, value: UIColor.yellow, range: .init(location: displayedPostfix!.length - postfixContainingResult.length, length: result.length))
                   
                   additionalLabel.attributedText = textToShow
@@ -126,6 +174,8 @@ class NotesTableViewCell: UITableViewCell {
                
             }
          }
+            
+            
          //Иначе, если есть вторая строчка, заносим ее в additional
          else {
             
@@ -135,16 +185,24 @@ class NotesTableViewCell: UITableViewCell {
                
                //
                if additionalLabel.text!.isInvisible {
-                  additionalLabel.text = "[No additional text]"
+                  
+                  textToShow = NSMutableAttributedString(string: "No additional text")
+                  
+                  textToShow.addAttribute(NSForegroundColorAttributeName, value: #colorLiteral(red: 0.6426234237, green: 0.6489860319, blue: 0.6489860319, alpha: 1), range: .init(location: 0, length: textToShow.string.length))
+                  
+                  additionalLabel.attributedText = textToShow
+                  
                }
                
             } else {
-               additionalLabel.text = "[No additional text]"
+               
+               textToShow = NSMutableAttributedString(string: "No additional text")
+               textToShow.addAttribute(NSForegroundColorAttributeName, value: #colorLiteral(red: 0.6426234237, green: 0.6489860319, blue: 0.6489860319, alpha: 1), range: .init(location: 0, length: textToShow.string.length))
+               
+               additionalLabel.attributedText = textToShow
+               
             }
          }
-         
-         
-         
          
          
       }
