@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+
 class NotesTableViewCell: UITableViewCell {
    
    var theViewController : NotesTableViewController!
@@ -19,11 +21,77 @@ class NotesTableViewCell: UITableViewCell {
          
          //Потом допили логику
          
-         //Название заметки
+//Название заметки (Хайлайты создатся в надлежащем цикле ниже)
          firstLineLabel.text = newValue.content!
          
-         
-         dateOfCreationLabel.text = DateFormatter.localizedString(from: newValue.dateOfCreation! as Date, dateStyle: .short, timeStyle: .none)
+         //Логика dateOfCreation
+         do {
+            
+            let calendar = Calendar(identifier: .gregorian)
+            
+            let dateFormatter = DateFormatter()
+            
+            let date = newValue.dateOfCreation as! Date
+            var dateToShow : String!
+            
+            //Если дата создания не позже чем 12 часов назад, то показываем время создания
+            if -date.timeIntervalSinceNow /* секунды */ < 12 * 60 * 60 {
+               
+               
+               
+               dateToShow = DateFormatter.localizedString(from: date, dateStyle: .none, timeStyle: .short)
+               
+               
+               //Непосредственно форматирование
+               switch dateToShow {
+               case "12:00 AM":
+                  //Полночь
+                  dateOfCreationLabel.text = "00:00"
+                  
+               case "12:00 PM":
+                  //Полдень
+                  dateOfCreationLabel.text = "12:00"
+                  
+               case _ where dateToShow.getPostfixWithLength(2) == "PM":
+                  //Если после полудня (PM)
+                  
+                  let hour = String(Int(dateToShow.removePrefixWithFirstFoundSymbol(":"))! + 12)
+                  
+                  dateToShow.removePostfixWithLength(3)
+                  
+                  dateToShow = hour + dateToShow
+                  
+                  dateOfCreationLabel.text = dateToShow
+                  
+               default:
+                  //До полудня (AM)
+                  dateToShow.removePostfixWithLength(3)
+                  
+                  //Если одна цифра в часе, то добавляем в начало пробел
+                  if dateToShow.getPrefixWithFirstFoundSymbol(":").length == 1 {
+                     dateToShow = " " + dateToShow
+                  }
+                  
+                  dateOfCreationLabel.text = dateToShow
+                  
+               }
+               
+               
+            } else if -date.timeIntervalSinceNow < 7 * 24 * 60 * 60 /* Условие недели */ {
+               
+               let weekdays = ["Monday","Tuesday","Thirsday","Thursday","Friday","Saturday","Sunday"]
+               
+               dateOfCreationLabel.text = weekdays[calendar.component(.weekday, from: date) - 1]
+               
+            } else /* Случай числа даты */ {
+               
+               
+               dateOfCreationLabel.text = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none)
+               
+            }
+            
+            
+         }
          
          
          //Перед началом логики нужно объявить основные переменные
@@ -75,7 +143,7 @@ class NotesTableViewCell: UITableViewCell {
                      
                      let label = noteContent.getPrefixWithFirstFoundSymbol("\n")
                      exit: for i in 1...label.length {
-                        if label.getPrefixWithLength(i).lowercased().contains(result) {
+                        if label.getPrefixWithLength(i).lowercased().contains(result.lowercased()) {
                            index = i - result.length
                            break exit
                         }
@@ -85,22 +153,26 @@ class NotesTableViewCell: UITableViewCell {
                      
                      exit: for i in 1...noteContent.length {
                         
-                        if noteContent.getPrefixWithLength(i).lowercased().contains(result) {
+                        if noteContent.getPrefixWithLength(i).lowercased().contains(result.lowercased()) {
                            
                            index = i - result.length
                            
                            break exit
                         }
                         
+                        //здесь меня быть не должно
+                        
                      }
                      
                      
                   }
                      
-                  print("index = \(index)")
+                  
                   
                   if index != nil {
                   textToShow.addAttribute(NSBackgroundColorAttributeName, value: UIColor.yellow, range: .init(location: index!, length: result.length))
+                  } else {
+                     
                   }
                   
                   firstLineLabel.attributedText = textToShow
@@ -116,12 +188,10 @@ class NotesTableViewCell: UITableViewCell {
                   
                   displayedPostfix = content.getPostfixWithLength(content.getPrefixWithLength(content.length - postfixContainingResult.length).getPostfixWithFirstFoundSymbol(" ").length + postfixContainingResult.length)
                  
-//                  print("displayedPostfix = \"\(displayedPostfix!)\"")
+                  
                   
                } else {
-//                  print("displayedPostfix = \"nil\"")
-//                  print("postfixContainingResult = \"\(postfixContainingResult)\"")
-//                  
+                  
                }
                
                
