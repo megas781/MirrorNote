@@ -15,6 +15,12 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
    
    @IBAction func refresh(_ sender: UIBarButtonItem) {
       
+      if tableView.isEditing {
+         tableView.setEditing(false, animated: true)
+      } else {
+         tableView.setEditing(true, animated: true)
+      }
+      
    }
    
    
@@ -229,13 +235,12 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
    
    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
       
-       
-      
       let remove = UITableViewRowAction(style: .destructive, title: "Remove") { (action, indexPath) in
          
          
-         if (tableView.cellForRow(at: indexPath) as! FoldersTableViewCell).nameOfFolderLabel.text != "Default Folder" {
          
+         if (tableView.cellForRow(at: indexPath) as! FoldersTableViewCell).nameOfFolderLabel.text != "Default Folder" {
+            
             do {
                
                //Если в папке есть заметки, то спрашиваем, как удалить
@@ -303,10 +308,12 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
                   } catch let error as NSError  {
                      print(error.localizedDescription)
                   }
-               
+                  
                }
-            
+               
             }
+            
+            
          } else {
             
             print("не удаляется")
@@ -315,8 +322,20 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
          
       }
       
+      if (tableView.cellForRow(at: indexPath) as! FoldersTableViewCell).nameOfFolderLabel.text != "Default Folder" {
+         
+         
+         
+         return [remove]
+         
+      } else {
+         
+//         return []
+         
+         return []
+         
+      }
       
-      return [remove]
       
    }
    
@@ -331,6 +350,7 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
       }
       
       return true
+      
    }
 }
 

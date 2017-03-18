@@ -249,7 +249,13 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
          
       }
       
-      return [delete]
+      let move = UITableViewRowAction(style: .normal, title: "Move") { (action, indexPath) in
+         
+         self.performSegue(withIdentifier: "moveNoteSegue", sender: self)
+         
+      }
+      
+      return [delete, move]
    }
    
 }
