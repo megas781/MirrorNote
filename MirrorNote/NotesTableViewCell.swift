@@ -19,8 +19,6 @@ class NotesTableViewCell: UITableViewCell {
          
          
          
-         //Потом допили логику
-         
 //Название заметки (Хайлайты создатся в надлежащем цикле ниже)
          firstLineLabel.text = newValue.content!
          
@@ -28,8 +26,6 @@ class NotesTableViewCell: UITableViewCell {
          do {
             
             let calendar = Calendar(identifier: .gregorian)
-            
-            let dateFormatter = DateFormatter()
             
             let date = newValue.dateOfCreation as! Date
             var dateToShow : String!
@@ -98,7 +94,6 @@ class NotesTableViewCell: UITableViewCell {
          let noteContent = newValue.content!
          
          let content = noteContent.singleLine()
-         
          
          var textToShow = NSMutableAttributedString(string: "")
          
@@ -279,7 +274,6 @@ class NotesTableViewCell: UITableViewCell {
    }
    
    @IBOutlet weak var firstLineLabel: UILabel!
-   
    @IBOutlet weak var dateOfCreationLabel: UILabel!
    @IBOutlet weak var additionalLabel: UILabel!
    
