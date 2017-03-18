@@ -20,8 +20,7 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
    
    @IBAction func addNewFolder(_ sender: UIBarButtonItem) {
       
-      
-      
+        
       if ac.actions.count < 2 {
          //Переопределим кнопку create
          create = UIAlertAction(title: "Create", style: .default, handler: { (action) in
@@ -167,6 +166,8 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
       
       cell.folder = info
       
+      
+      
       return cell
    }
    
@@ -221,21 +222,102 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
       
    }
    
+   //пока хз, что это значит
+   override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+      return true
+   }
+   
    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
       
+       
+      
       let remove = UITableViewRowAction(style: .destructive, title: "Remove") { (action, indexPath) in
-         do {
-         context.delete(self.folderList.remove(at: indexPath.row))
-         try context.save()
-         tableView.deleteRows(at: [indexPath], with: .fade)
-         tableView.reloadData()
-         } catch let error as NSError  {
-            print(error.localizedDescription)
+         
+         
+         if (tableView.cellForRow(at: indexPath) as! FoldersTableViewCell).nameOfFolderLabel.text != "Default Folder" {
+         
+            do {
+               
+               //Если в папке есть заметки, то спрашиваем, как удалить
+               if self.folderList[indexPath.row].notes!.count > 0 {
+                  
+                  let ac = UIAlertController(title: "Delet Folder?", message: "If you delete the folder only, its notes will move to the Default folder. Any subfolders will also be deleted.", preferredStyle: .alert)
+                  
+                  //Удалить всё: Папку и заметки в ней
+                  let deleteFolderAndNotesButton = UIAlertAction(title: "Delete Folder and Notes", style: .default, handler: { (action) in
+                     
+                     do {
+                        context.delete(self.folderList.remove(at: indexPath.row))
+                        try context.save()
+                        tableView.deleteRows(at: [indexPath], with: .fade)
+                        tableView.reloadData()
+                     } catch let error as NSError  {
+                        print(error.localizedDescription)
+                     }
+                     
+                  })
+                  
+                  let deleteFolderOnlyButton = UIAlertAction(title: "Delete Folder Only", style: .default, handler: { (action) in
+                     
+                     do {
+                        
+                        
+                        self.folderList[0].notes = self.folderList[0].notes!.addingObjects(from: self.folderList[indexPath.row].notes!.sortedArray(using: [])) as NSSet
+                        
+                        
+                        context.delete(self.folderList[indexPath.row])
+                        try context.save()
+                        self.folderList.remove(at: indexPath.row)
+                        tableView.deleteRows(at: [indexPath], with: .fade)
+                        
+                        tableView.reloadData()
+                        
+                     } catch let error as NSError {
+                        print(error.localizedDescription)
+                     }
+                     
+                     
+                     
+                  })
+                  
+                  let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+                     
+                  })
+                  
+                  ac.addAction(deleteFolderAndNotesButton)
+                  ac.addAction(deleteFolderOnlyButton)
+                  ac.addAction(cancel)
+                  
+                  self.present(ac, animated: true, completion: nil)
+                  
+                  
+               } else {
+                  
+                  //Здесь мы знаем, что папка пустая
+                  
+                  do {
+                     context.delete(self.folderList.remove(at: indexPath.row))
+                     try context.save()
+                     tableView.deleteRows(at: [indexPath], with: .fade)
+                     tableView.reloadData()
+                  } catch let error as NSError  {
+                     print(error.localizedDescription)
+                  }
+               
+               }
+            
+            }
+         } else {
+            
+            print("не удаляется")
          }
+         
+         
       }
       
       
       return [remove]
+      
    }
    
    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
