@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		ED6033AE1E7DAAAA00BDC984 /* MoveNoteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6033AD1E7DAAAA00BDC984 /* MoveNoteTableViewController.swift */; };
+		ED6033B01E7E771900BDC984 /* globalValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6033AF1E7E771900BDC984 /* globalValues.swift */; };
 		ED91C5FF1E674C00002D4C54 /* ExtensionForString.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91C5FE1E674C00002D4C54 /* ExtensionForString.swift */; };
 		EDEE02171E637F66002542D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEE020C1E637F66002542D2 /* AppDelegate.swift */; };
 		EDEE021A1E637F66002542D2 /* EditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEE020F1E637F66002542D2 /* EditingViewController.swift */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		ED6033AD1E7DAAAA00BDC984 /* MoveNoteTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveNoteTableViewController.swift; sourceTree = "<group>"; };
+		ED6033AF1E7E771900BDC984 /* globalValues.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = globalValues.swift; sourceTree = "<group>"; };
 		ED91C5FE1E674C00002D4C54 /* ExtensionForString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionForString.swift; path = ../ExtensionForString.swift; sourceTree = "<group>"; };
 		EDEE01F41E637F19002542D2 /* MirrorNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MirrorNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDEE020C1E637F66002542D2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = MirrorNote/AppDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 				EDEE02341E6382BB002542D2 /* Notes Scene */,
 				EDEE020F1E637F66002542D2 /* EditingViewController.swift */,
 				ED6033AD1E7DAAAA00BDC984 /* MoveNoteTableViewController.swift */,
+				ED6033AF1E7E771900BDC984 /* globalValues.swift */,
 				EDEE022D1E63821F002542D2 /* Main.storyboard */,
 				EDEE022B1E63821F002542D2 /* LaunchScreen.storyboard */,
 				EDEE02311E63823C002542D2 /* Assets.xcassets */,
@@ -173,6 +176,7 @@
 				EDEE021A1E637F66002542D2 /* EditingViewController.swift in Sources */,
 				EDEE021E1E637F66002542D2 /* MirrorNote.xcdatamodeld in Sources */,
 				EDEE021C1E637F66002542D2 /* FoldersTableViewController.swift in Sources */,
+				ED6033B01E7E771900BDC984 /* globalValues.swift in Sources */,
 				EDEE021B1E637F66002542D2 /* FoldersTableViewCell.swift in Sources */,
 				EDEE021F1E637F66002542D2 /* NotesTableViewCell.swift in Sources */,
 				ED91C5FF1E674C00002D4C54 /* ExtensionForString.swift in Sources */,

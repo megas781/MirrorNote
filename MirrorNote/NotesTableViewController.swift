@@ -24,9 +24,22 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
    var notesFetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
    var notesFetchController: NSFetchedResultsController<Note>!
    
+   var editButtonPressed = false
+   
+//   var checkboxSelectorBefore : Selector!
+   
    
    override func viewDidLoad() {
       
+      //test
+      
+      
+      
+      editStyleBarButtonItem = UIBarButtonItem.init(title: "Edit", style: .plain, target: self, action: #selector(self.checkboxSelectorMain))
+      cancelStyleBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(self.checkboxSelectorMain))
+      
+      
+      navigationItem.rightBarButtonItem = editStyleBarButtonItem
       
       tableView.tableFooterView = UIView(frame: .zero)
       
@@ -60,6 +73,13 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
       notesFetchController = NSFetchedResultsController(fetchRequest: notesFetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
       
       
+      
+   }
+   
+   override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+      
+      // Возвращаем стиль с checkbox'ами, который мне нужен
+      return UITableViewCellEditingStyle.init(rawValue: 3)!
       
    }
    
@@ -118,11 +138,10 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
    
    @IBAction func refresh(_ sender: UIBarButtonItem) {
       
-      if (tableView.cellForRow(at: IndexPath.init(row: 3, section: 0)) as! NotesTableViewCell).additionalLabel.text!.contains("\n") {
-         print("содержит ентр")
-      } else {
-         print("additional = \"\((tableView.cellForRow(at: IndexPath.init(row: 3, section: 0)) as! NotesTableViewCell).additionalLabel.text!)\"")
-      }
+//      navigationItem.rightBarButtonItem = editButtonItem
+      
+      
+      
    }
    
    // MARK: - Table view data source
@@ -235,6 +254,14 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
       
    }
    
+   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+      if tableView.isEditing {
+         print("Ты в editmode'e, нельзя перескакивать")
+      } else {
+         performSegue(withIdentifier: "FromSelectedCellToEditing", sender: self)
+      }
+   }
+   
    
     // MARK: - Navigation
     
@@ -280,4 +307,35 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
       return [delete, move]
    }
    
+   
+   //Кастоная кнопка Edit
+   var editStyleBarButtonItem : UIBarButtonItem!
+   var cancelStyleBarButtonItem : UIBarButtonItem!
+   
+   
+
+   
+   //Действие для кастомной кнопки Edit
+   func checkboxSelectorMain () {
+      
+      editButtonPressed = true
+      
+      if navigationItem.rightBarButtonItem == editStyleBarButtonItem {
+         navigationItem.rightBarButtonItem = cancelStyleBarButtonItem
+         
+         
+         
+      } else {
+         navigationItem.rightBarButtonItem = editStyleBarButtonItem
+      }
+      
+      self.perform(editButtonItem.action)
+      
+      print("Edit mode main action seccess!! uaaaw!!")
+      
+      
+            
+   }
+   
 }
+
