@@ -24,9 +24,22 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
    var notesFetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
    var notesFetchController: NSFetchedResultsController<Note>!
    
+   var editButtonPressed = false
+   
+//   var checkboxSelectorBefore : Selector!
+   
    
    override func viewDidLoad() {
       
+      //test
+      
+      
+      
+      editStyleBarButtonItem = UIBarButtonItem.init(title: "Edit", style: .plain, target: self, action: #selector(self.checkboxSelectorMain))
+      cancelStyleBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(self.checkboxSelectorMain))
+      
+      
+      navigationItem.rightBarButtonItem = editStyleBarButtonItem
       
       tableView.tableFooterView = UIView(frame: .zero)
       
@@ -60,6 +73,13 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
       notesFetchController = NSFetchedResultsController(fetchRequest: notesFetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
       
       
+      
+   }
+   
+   override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+      
+      // Возвращаем стиль с checkbox'ами, который мне нужен
+      return UITableViewCellEditingStyle.init(rawValue: 3)!
       
    }
    
@@ -118,11 +138,10 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
    
    @IBAction func refresh(_ sender: UIBarButtonItem) {
       
-      if (tableView.cellForRow(at: IndexPath.init(row: 3, section: 0)) as! NotesTableViewCell).additionalLabel.text!.contains("\n") {
-         print("содержит ентр")
-      } else {
-         print("additional = \"\((tableView.cellForRow(at: IndexPath.init(row: 3, section: 0)) as! NotesTableViewCell).additionalLabel.text!)\"")
-      }
+//      navigationItem.rightBarButtonItem = editButtonItem
+      
+      
+      
    }
    
    // MARK: - Table view data source
@@ -145,6 +164,7 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
    
    //Когда возвращать заметку из фильтр-массива, а когда из обычного в метод cellForRowAt indexPath
    func properNote(at index: Int) -> Note {
+      
       if searchController.isActive && searchBar.text != "" {
          
          return filteredNoteList[index]
@@ -209,12 +229,39 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
          
          dvc.isNewNote = true
          
+         
+      case "moveNoteSegue":
+         
+         //Здесь подгрузим папки
+         
+         //MoveNoteTableViewController
+         let dvc = (segue.destination as! UINavigationController).topViewController as! MoveNoteTableViewController
+         
+         do {
+            dvc.folderList = try context.fetch(dvc.fetchRequset)
+         } catch let error as NSError {
+            print(error.localizedDescription)
+         }
+         
       default:
          break
       }
       
       
    }
+   
+   @IBAction func backToNotes (segue: UIStoryboardSegue) {
+      
+   }
+   
+   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+      if tableView.isEditing {
+         print("Ты в editmode'e, нельзя перескакивать")
+      } else {
+         performSegue(withIdentifier: "FromSelectedCellToEditing", sender: self)
+      }
+   }
+   
    
     // MARK: - Navigation
     
@@ -249,7 +296,46 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
          
       }
       
-      return [delete]
+      let move = UITableViewRowAction(style: .normal, title: "Move") { (action, indexPath) in
+         
+         self.performSegue(withIdentifier: "moveNoteSegue", sender: self)
+         
+//         self.performSegue(withIdentifier: "moveNoteSegue", sender: self)
+         
+      }
+      
+      return [delete, move]
+   }
+   
+   
+   //Кастоная кнопка Edit
+   var editStyleBarButtonItem : UIBarButtonItem!
+   var cancelStyleBarButtonItem : UIBarButtonItem!
+   
+   
+
+   
+   //Действие для кастомной кнопки Edit
+   func checkboxSelectorMain () {
+      
+      editButtonPressed = true
+      
+      if navigationItem.rightBarButtonItem == editStyleBarButtonItem {
+         navigationItem.rightBarButtonItem = cancelStyleBarButtonItem
+         
+         
+         
+      } else {
+         navigationItem.rightBarButtonItem = editStyleBarButtonItem
+      }
+      
+      self.perform(editButtonItem.action)
+      
+      print("Edit mode main action seccess!! uaaaw!!")
+      
+      
+            
    }
    
 }
+
