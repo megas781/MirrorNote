@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -85,19 +86,37 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f4Z-aS-wfk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1234" y="154"/>
+            <point key="canvasLocation" x="2097" y="152"/>
         </scene>
-        <!--Folders-->
+        <!--MoveNote-->
         <scene sceneID="AWl-8q-otD">
             <objects>
-                <tableViewController id="hbb-NM-E15" customClass="MoveNoteTableViewController" customModule="MirrorNote" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="hbb-NM-E15" userLabel="MoveNote" customClass="MoveNoteTableViewController" customModule="MirrorNote" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="zOq-5d-iaf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="1" blue="0.82394123080000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="425-Xv-glj">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noteImage" translatesAutoresizingMaskIntoConstraints="NO" id="Rks-Ul-qdP">
+                                    <rect key="frame" x="6" y="10" width="80" height="80"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="Rks-Ul-qdP" secondAttribute="height" multiplier="1:1" id="eIV-GD-nxB"/>
+                                        <constraint firstAttribute="height" constant="80" id="zpj-js-L5G"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" red="0.47260785893856722" green="0.80193131345177671" blue="0.69279827437778341" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstItem="Rks-Ul-qdP" firstAttribute="centerY" secondItem="425-Xv-glj" secondAttribute="centerY" id="D4F-9e-7lU"/>
+                                <constraint firstItem="Rks-Ul-qdP" firstAttribute="leading" secondItem="425-Xv-glj" secondAttribute="leading" constant="6" id="f4X-dZ-KbP"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="3Z1-bD-16D" customClass="FoldersTableViewCell" customModule="MirrorNote" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="128" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Z1-bD-16D" id="IS3-zJ-onc">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
@@ -141,18 +160,12 @@
                             <outlet property="delegate" destination="hbb-NM-E15" id="bRc-wc-AD5"/>
                         </connections>
                     </tableView>
-                    <toolbarItems>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="ZBV-tS-W0g"/>
-                        <barButtonItem title="New Folder" id="iH7-H9-BSy">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Select a folder" id="sXz-M2-3dB">
+                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="cancel" id="xws-ut-joA">
                             <connections>
-                                <action selector="addNewFolder:" destination="hbb-NM-E15" id="flY-0c-aUe"/>
-                            </connections>
-                        </barButtonItem>
-                    </toolbarItems>
-                    <navigationItem key="navigationItem" title="Folders" id="1Qu-mX-pII">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="fdf-K7-KPt">
-                            <connections>
-                                <action selector="refresh:" destination="hbb-NM-E15" id="S4P-QZ-ORC"/>
+                                <action selector="cancel:" destination="hbb-NM-E15" id="PFV-dk-qaU"/>
+                                <segue destination="WPi-r9-uPB" kind="unwind" unwindAction="backToNotesWithSegue:" id="bjh-zQ-eQh"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -160,84 +173,9 @@
                     <size key="freeformSize" width="375" height="667"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JVR-o7-y0V" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="WPi-r9-uPB" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2742" y="949"/>
-        </scene>
-        <!--Folders-->
-        <scene sceneID="0rl-jX-veq">
-            <objects>
-                <tableViewController id="tfJ-L4-qvc" customClass="FoldersTableViewController" customModule="MirrorNote" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="E0a-kw-5f2">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.0" green="1" blue="0.82394123080000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="tye-kT-bC2" customClass="FoldersTableViewCell" customModule="MirrorNote" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tye-kT-bC2" id="d3y-b5-5nI">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Prototype Name of Folder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HC5-TW-Wx0">
-                                            <rect key="frame" x="15" y="0.0" width="269" height="44"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="228" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8tz-9h-EIM">
-                                            <rect key="frame" x="284" y="8" width="40" height="28"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="40" id="7Mb-xc-G43"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="HC5-TW-Wx0" firstAttribute="top" secondItem="d3y-b5-5nI" secondAttribute="top" id="1L6-bG-X8b"/>
-                                        <constraint firstItem="8tz-9h-EIM" firstAttribute="top" secondItem="d3y-b5-5nI" secondAttribute="topMargin" id="AhL-fu-uNY"/>
-                                        <constraint firstItem="HC5-TW-Wx0" firstAttribute="leading" secondItem="d3y-b5-5nI" secondAttribute="leading" constant="15" id="PJh-60-yrq"/>
-                                        <constraint firstItem="8tz-9h-EIM" firstAttribute="leading" secondItem="HC5-TW-Wx0" secondAttribute="trailing" id="biD-Yo-0m8"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="8tz-9h-EIM" secondAttribute="trailing" constant="10" id="jkU-qI-KrU"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="8tz-9h-EIM" secondAttribute="bottom" id="las-4o-ZTA"/>
-                                        <constraint firstAttribute="bottom" secondItem="HC5-TW-Wx0" secondAttribute="bottom" id="tcL-xP-5wH"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.0" green="1" blue="0.90667767769999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <outlet property="nameOfFolderLabel" destination="HC5-TW-Wx0" id="ZuF-Bq-3OK"/>
-                                    <outlet property="quantityOfElementsInFolderLabel" destination="8tz-9h-EIM" id="GGV-jP-MnZ"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="tfJ-L4-qvc" id="xZe-iI-DOZ"/>
-                            <outlet property="delegate" destination="tfJ-L4-qvc" id="Eek-Z6-tzu"/>
-                        </connections>
-                    </tableView>
-                    <toolbarItems>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="wtv-zR-77k"/>
-                        <barButtonItem title="New Folder" id="ha3-0n-u7q">
-                            <connections>
-                                <action selector="addNewFolder:" destination="tfJ-L4-qvc" id="m41-oQ-fsV"/>
-                            </connections>
-                        </barButtonItem>
-                    </toolbarItems>
-                    <navigationItem key="navigationItem" title="Folders" id="x8z-oi-mms">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="2RR-tj-Pan">
-                            <connections>
-                                <action selector="refresh:" destination="tfJ-L4-qvc" id="T1V-9U-pku"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="667"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dlU-dC-Ela" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1234" y="154"/>
+            <point key="canvasLocation" x="3680.8000000000002" y="948.57571214392806"/>
         </scene>
         <!--Notes-->
         <scene sceneID="YG0-5f-xug">
@@ -331,6 +269,7 @@
                     <connections>
                         <outlet property="buttonLabel" destination="rUp-tx-8uF" id="JRD-Em-gv4"/>
                         <outlet property="searchDisplayController" destination="3rj-jp-VHZ" id="E8V-3R-Dj5"/>
+                        <segue destination="sn5-QI-gbp" kind="show" identifier="moveNoteSegue" id="Orq-Gm-svE"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sez-EQ-OMW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -343,7 +282,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2010" y="154"/>
+            <point key="canvasLocation" x="2889" y="152"/>
         </scene>
         <!--Editing-->
         <scene sceneID="0KH-dE-SCE">
@@ -382,7 +321,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E1E-mp-ME0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2742" y="153"/>
+            <point key="canvasLocation" x="3680.8000000000002" y="152.47376311844079"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BDc-dr-PrT">
@@ -410,28 +349,40 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hHb-lF-AIs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="388" y="153"/>
+            <point key="canvasLocation" x="1266" y="152"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="mLJ-6d-ywj">
+        <scene sceneID="a9o-Jl-1Qf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="P9j-w2-qvp" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sn5-QI-gbp" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9RY-Cp-liZ">
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="07h-hb-dKr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.0" green="1" blue="0.82394123080000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.0" green="1" blue="0.82394123080000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Ohh-Jb-3HI">
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.0" green="1" blue="0.82394123080000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </toolbar>
                     <connections>
-                        <segue destination="hbb-NM-E15" kind="relationship" relationship="rootViewController" id="b9E-Au-z0r"/>
+                        <segue destination="hbb-NM-E15" kind="relationship" relationship="rootViewController" id="t8u-Ws-XmC"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xuw-8z-1pw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E5d-SC-P30" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2009" y="949"/>
+            <point key="canvasLocation" x="2889" y="949"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="noteImage" width="406" height="417"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Fdn-r7-ofQ"/>
+        <segue reference="WZj-nP-UfT"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -145,6 +145,7 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
    
    //Когда возвращать заметку из фильтр-массива, а когда из обычного в метод cellForRowAt indexPath
    func properNote(at index: Int) -> Note {
+      
       if searchController.isActive && searchBar.text != "" {
          
          return filteredNoteList[index]
@@ -209,12 +210,31 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
          
          dvc.isNewNote = true
          
+         
+      case "moveNoteSegue":
+         
+         //Здесь подгрузим папки
+         
+         //MoveNoteTableViewController
+         let dvc = (segue.destination as! UINavigationController).topViewController as! MoveNoteTableViewController
+         
+         do {
+            dvc.folderList = try context.fetch(dvc.fetchRequset)
+         } catch let error as NSError {
+            print(error.localizedDescription)
+         }
+         
       default:
          break
       }
       
       
    }
+   
+   @IBAction func backToNotes (segue: UIStoryboardSegue) {
+      
+   }
+   
    
     // MARK: - Navigation
     
@@ -252,6 +272,8 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
       let move = UITableViewRowAction(style: .normal, title: "Move") { (action, indexPath) in
          
          self.performSegue(withIdentifier: "moveNoteSegue", sender: self)
+         
+//         self.performSegue(withIdentifier: "moveNoteSegue", sender: self)
          
       }
       
