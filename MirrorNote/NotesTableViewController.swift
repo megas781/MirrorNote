@@ -96,7 +96,10 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
       // Возвращаем стиль с checkbox'ами, который мне нужен
       return UITableViewCellEditingStyle.init(rawValue: 3)!
       
+      
    }
+   
+   
    
    override func viewWillAppear(_ animated: Bool) {
       
@@ -184,6 +187,10 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
          
          return noteList[index]
       }
+   }
+   
+   override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+      return true
    }
    
    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

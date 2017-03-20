@@ -163,6 +163,13 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
       return folderList.count
    }
    
+   override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+      if (tableView.cellForRow(at: indexPath) as? FoldersTableViewCell)?.nameOfFolderLabel.text != "Default Folder" {
+         return true
+      } else {
+         return false
+      }
+   }
    
    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! FoldersTableViewCell
@@ -227,10 +234,7 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
       
    }
    
-   //пока хз, что это значит
-   override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-      return true
-   }
+   
    
    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
       
