@@ -10,12 +10,18 @@ import UIKit
 import CoreData
 class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISearchControllerDelegate, UISearchResultsUpdating {
    
+   //Средняя кнопка в toolBar
    @IBOutlet weak var buttonLabel: UIBarButtonItem!
+   //Левая кнопка в toolBar
+   @IBOutlet weak var leftToolBarButton: UIBarButtonItem!
+   
+   
+   
 
    var searchController: UISearchController! = UISearchController.init(searchResultsController: nil)
    var searchBar: UISearchBar!
    
-   var k = 0
+   
    
    var folder : Folder!
    var noteList: [Note] = []
@@ -24,9 +30,31 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
    var notesFetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
    var notesFetchController: NSFetchedResultsController<Note>!
    
+   var editButtonPressed = false
+   
+//   var checkboxSelectorBefore : Selector!
+   
    
    override func viewDidLoad() {
       
+      //Назначаем кнопки toolBar'a
+      //Слева пока что ничего быть не должно
+      print("count of items in toolbar = \(navigationController?.toolbar.items?.count)")
+      
+      
+      
+      //Справа переход к созданию новой заметки
+      
+      
+      
+      
+      //test
+
+      editStyleBarButtonItem = UIBarButtonItem.init(title: "Edit", style: .plain, target: self, action: #selector(self.checkboxSelectorMain))
+      cancelStyleBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(self.checkboxSelectorMain))
+      
+      
+      navigationItem.rightBarButtonItem = editStyleBarButtonItem
       
       tableView.tableFooterView = UIView(frame: .zero)
       
@@ -63,8 +91,20 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
       
    }
    
+   override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+      
+      // Возвращаем стиль с checkbox'ами, который мне нужен
+      return UITableViewCellEditingStyle.init(rawValue: 3)!
+      
+      
+   }
+   
+   
+   
    override func viewWillAppear(_ animated: Bool) {
       
+      print("count = \(navigationController?.toolbar.items?.count)")
+            
       //Здесь перезагружаем данные (Или загружаем, если в первый раз   здесь)
       do {
          
@@ -101,6 +141,7 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
    }
    
    override func viewDidAppear(_ animated: Bool) {
+      
       tableView.reloadData()
    }
    
@@ -116,14 +157,7 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
       
    }
    
-   @IBAction func refresh(_ sender: UIBarButtonItem) {
-      
-      if (tableView.cellForRow(at: IndexPath.init(row: 3, section: 0)) as! NotesTableViewCell).additionalLabel.text!.contains("\n") {
-         print("содержит ентр")
-      } else {
-         print("additional = \"\((tableView.cellForRow(at: IndexPath.init(row: 3, section: 0)) as! NotesTableViewCell).additionalLabel.text!)\"")
-      }
-   }
+   
    
    // MARK: - Table view data source
    
@@ -145,6 +179,7 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
    
    //Когда возвращать заметку из фильтр-массива, а когда из обычного в метод cellForRowAt indexPath
    func properNote(at index: Int) -> Note {
+      
       if searchController.isActive && searchBar.text != "" {
          
          return filteredNoteList[index]
@@ -152,6 +187,10 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
          
          return noteList[index]
       }
+   }
+   
+   override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+      return true
    }
    
    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -209,12 +248,39 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
          
          dvc.isNewNote = true
          
+         
+      case "moveNoteSegue":
+         
+         //Здесь подгрузим папки
+         
+         //MoveNoteTableViewController
+         let dvc = (segue.destination as! UINavigationController).topViewController as! MoveNoteTableViewController
+         
+         do {
+            dvc.folderList = try context.fetch(dvc.fetchRequset)
+         } catch let error as NSError {
+            print(error.localizedDescription)
+         }
+         
       default:
          break
       }
       
       
    }
+   
+   @IBAction func backToNotes (segue: UIStoryboardSegue) {
+      
+   }
+   
+   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+      if tableView.isEditing {
+         
+      } else {
+         performSegue(withIdentifier: "FromSelectedCellToEditing", sender: self)
+      }
+   }
+   
    
     // MARK: - Navigation
     
@@ -249,7 +315,52 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
          
       }
       
-      return [delete]
+      let move = UITableViewRowAction(style: .normal, title: "Move") { (action, indexPath) in
+         
+         self.performSegue(withIdentifier: "moveNoteSegue", sender: self)
+         
+//         self.performSegue(withIdentifier: "moveNoteSegue", sender: self)
+         
+      }
+      
+      return [delete, move]
    }
    
+   
+   //Кастоная кнопка Edit
+   var editStyleBarButtonItem : UIBarButtonItem!
+   var cancelStyleBarButtonItem : UIBarButtonItem!
+   
+   
+
+   
+   //Действие для кастомной кнопки Edit
+   func checkboxSelectorMain () {
+      
+      editButtonPressed = true
+      
+      if navigationItem.rightBarButtonItem == editStyleBarButtonItem {
+         navigationItem.rightBarButtonItem = cancelStyleBarButtonItem
+         
+         
+         
+      } else {
+         navigationItem.rightBarButtonItem = editStyleBarButtonItem
+      }
+      
+      self.perform(editButtonItem.action)
+      
+      (navigationController!.toolbar.items!.insert(UIBarButtonItem.init(title: "Move", style: .plain, target: self, action: nil), at: 0))
+      
+      print("Edit mode main action seccess!! uaaaw!!")
+           
+   }
+   
+   //Действие для правой кнопки в toolbar'e
+   func rightToolBarSelector() {
+      performSegue(withIdentifier: "createNewNote", sender: self)
+   }
+   
+   
 }
+

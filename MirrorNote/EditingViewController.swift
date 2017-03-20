@@ -12,6 +12,12 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
    
    @IBOutlet weak var textView: UITextView!
    @IBOutlet weak var theNavigationItem: UINavigationItem!
+   @IBAction func refresh(_ sender: UIBarButtonItem) {
+      
+      print("ДО rightBarButtonItem = \(navigationItem.rightBarButtonItem)")
+      navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.doneButtonPressed(_:))), animated: false)
+      
+   }
    
    
    var folderToContain: Folder!
@@ -28,8 +34,8 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
       //Убираем клаву
       textView.resignFirstResponder()
       
-      //
-      theNavigationItem.setRightBarButton(nil, animated: false)
+      navigationItem.setRightBarButton(nil, animated: false)
+      navigationItem.setRightBarButton(UIBarButtonItem(title: "хуй", style: .done, target: self, action: nil), animated: true)
       
    }
    
@@ -48,9 +54,14 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
       
       //Добавим кнопку Done
       if textView.isFirstResponder {
-         theNavigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(self.doneButtonPressed(_:))), animated: false)
+         
+          print("ДО rightBarButtonItem = \(navigationItem.rightBarButtonItem)")
+         
+         
+         
+         navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.doneButtonPressed(_:))), animated: true)
       } else {
-         theNavigationItem.setRightBarButton(nil, animated: false)
+         navigationItem.setRightBarButton(nil, animated: false)
       }
       
       
@@ -119,9 +130,9 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
       
       //Если мы переходим с существующей заметки, то не добавляем кнопку done (точнее, добавляем nil)
       if isNewNote! {
-         navigationItem.setRightBarButton(UIBarButtonItem.init(title: nil, style: .done, target: nil, action: #selector(EditingViewController.updateTextView(notification:))), animated: true)
+         navigationItem.setRightBarButton(UIBarButtonItem.init(title: nil, style: .done, target: nil, action: #selector(EditingViewController.updateTextView(notification:))), animated: false)
       } else {
-         navigationItem.setRightBarButton(nil, animated: true)
+         navigationItem.setRightBarButton(nil, animated: false)
       }
       
       //Загружать данные лучше во viewWillAppear
