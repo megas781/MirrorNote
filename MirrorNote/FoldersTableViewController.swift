@@ -15,11 +15,7 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
    
    @IBAction func refresh(_ sender: UIBarButtonItem) {
       
-      if tableView.isEditing {
-         tableView.setEditing(false, animated: true)
-      } else {
-         tableView.setEditing(true, animated: true)
-      }
+      print("current count = \(navigationController?.toolbar.items?.count)")
       
    }
    
@@ -74,6 +70,9 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
    
    override func viewDidLoad() {
       super.viewDidLoad()
+      
+      print("count = \(navigationController?.toolbar.items?.count)")
+      
       //Важное
       tableView.tableFooterView = UIView(frame: .zero)
       //Добавляем лишь однажды
@@ -164,6 +163,13 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
       return folderList.count
    }
    
+   override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+      if (tableView.cellForRow(at: indexPath) as? FoldersTableViewCell)?.nameOfFolderLabel.text != "Default Folder" {
+         return true
+      } else {
+         return false
+      }
+   }
    
    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! FoldersTableViewCell
@@ -228,10 +234,7 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
       
    }
    
-   //пока хз, что это значит
-   override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-      return true
-   }
+   
    
    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
       
