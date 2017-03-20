@@ -15,11 +15,7 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
    
    @IBAction func refresh(_ sender: UIBarButtonItem) {
       
-      if tableView.isEditing {
-         tableView.setEditing(false, animated: true)
-      } else {
-         tableView.setEditing(true, animated: true)
-      }
+      print("current count = \(navigationController?.toolbar.items?.count)")
       
    }
    
@@ -74,6 +70,9 @@ class FoldersTableViewController: UITableViewController, UITextFieldDelegate {
    
    override func viewDidLoad() {
       super.viewDidLoad()
+      
+      print("count = \(navigationController?.toolbar.items?.count)")
+      
       //Важное
       tableView.tableFooterView = UIView(frame: .zero)
       //Добавляем лишь однажды

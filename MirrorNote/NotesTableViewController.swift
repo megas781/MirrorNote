@@ -10,12 +10,18 @@ import UIKit
 import CoreData
 class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISearchControllerDelegate, UISearchResultsUpdating {
    
+   //Средняя кнопка в toolBar
    @IBOutlet weak var buttonLabel: UIBarButtonItem!
+   //Левая кнопка в toolBar
+   @IBOutlet weak var leftToolBarButton: UIBarButtonItem!
+   
+   
+   
 
    var searchController: UISearchController! = UISearchController.init(searchResultsController: nil)
    var searchBar: UISearchBar!
    
-   var k = 0
+   
    
    var folder : Folder!
    var noteList: [Note] = []
@@ -31,10 +37,19 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
    
    override func viewDidLoad() {
       
+      //Назначаем кнопки toolBar'a
+      //Слева пока что ничего быть не должно
+      print("count of items in toolbar = \(navigationController?.toolbar.items?.count)")
+      
+      
+      
+      //Справа переход к созданию новой заметки
+      
+      
+      
+      
       //test
-      
-      
-      
+
       editStyleBarButtonItem = UIBarButtonItem.init(title: "Edit", style: .plain, target: self, action: #selector(self.checkboxSelectorMain))
       cancelStyleBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(self.checkboxSelectorMain))
       
@@ -85,6 +100,8 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
    
    override func viewWillAppear(_ animated: Bool) {
       
+      print("count = \(navigationController?.toolbar.items?.count)")
+            
       //Здесь перезагружаем данные (Или загружаем, если в первый раз   здесь)
       do {
          
@@ -121,6 +138,7 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
    }
    
    override func viewDidAppear(_ animated: Bool) {
+      
       tableView.reloadData()
    }
    
@@ -136,13 +154,7 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
       
    }
    
-   @IBAction func refresh(_ sender: UIBarButtonItem) {
-      
-//      navigationItem.rightBarButtonItem = editButtonItem
-      
-      
-      
-   }
+   
    
    // MARK: - Table view data source
    
@@ -256,7 +268,7 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
    
    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       if tableView.isEditing {
-         print("Ты в editmode'e, нельзя перескакивать")
+         
       } else {
          performSegue(withIdentifier: "FromSelectedCellToEditing", sender: self)
       }
@@ -331,11 +343,17 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate,UISea
       
       self.perform(editButtonItem.action)
       
+      (navigationController!.toolbar.items!.insert(UIBarButtonItem.init(title: "Move", style: .plain, target: self, action: nil), at: 0))
+      
       print("Edit mode main action seccess!! uaaaw!!")
-      
-      
-            
+           
    }
+   
+   //Действие для правой кнопки в toolbar'e
+   func rightToolBarSelector() {
+      performSegue(withIdentifier: "createNewNote", sender: self)
+   }
+   
    
 }
 

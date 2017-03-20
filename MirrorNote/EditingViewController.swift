@@ -57,6 +57,8 @@ class EditingViewController: UIViewController, UITextViewDelegate, UINavigationC
          
           print("ДО rightBarButtonItem = \(navigationItem.rightBarButtonItem)")
          
+         
+         
          navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.doneButtonPressed(_:))), animated: true)
       } else {
          navigationItem.setRightBarButton(nil, animated: false)
